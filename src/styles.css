@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+body {
+  @apply m-0 font-sans;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  @apply font-mono;
+}
+
+@theme {
+  --font-sans: "Space Grotesk", "sans-serif";
+  --font-mono: "Space Mono", "sans-serif";
+
+  --color-gray-50: #f6f6f9;
+  --color-gray-100: #ececf2;
+  --color-gray-200: #d5d6e2;
+  --color-gray-300: #b0b2c9;
+  --color-gray-400: #8689aa;
+  --color-gray-500: #676a90;
+  --color-gray-600: #525577;
+  --color-gray-700: #434461;
+  --color-gray-800: #3a3c52;
+  --color-gray-900: #343446;
+  --color-gray-950: #0b0b0f;
+
+  --color-error: #d84f68;
+  --color-error-light: #ff5c5c;
+  --color-error-dark: #b43f57;
+
+  --color-candle: #e6e7a3;
+
+  --color-mint: #4ebe96;
+
+  --color-link: #479ffa;
+}
+
+/*  iOS device inputs*/
+@supports (-webkit-touch-callout: none) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
