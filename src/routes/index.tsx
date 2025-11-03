@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/")({ component: App });
+export const Route = createFileRoute("/")({ component: HomePage });
 
-function App() {
+function HomePage() {
 	return (
 		<div>
 			<p className="text-candle">hi</p>
