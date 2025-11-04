@@ -1,7 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/psbt")({ component: PsbtPage });
+export const Route = createFileRoute("/psbt")({
+	head: () => ({
+		meta: [
+			{
+				title: "psbt | praxe",
+			},
+		],
+	}),
+	component: PsbtPage,
+});
 
 function PsbtPage() {
 	return (
