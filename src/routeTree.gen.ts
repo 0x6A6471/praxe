@@ -9,8 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PsbtRouteImport } from './routes/psbt'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PsbtRoute = PsbtRouteImport.update({
+  id: '/psbt',
+  path: '/psbt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +25,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/psbt': typeof PsbtRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/psbt': typeof PsbtRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/psbt': typeof PsbtRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/psbt'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/psbt'
+  id: '__root__' | '/' | '/psbt'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PsbtRoute: typeof PsbtRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/psbt': {
+      id: '/psbt'
+      path: '/psbt'
+      fullPath: '/psbt'
+      preLoaderRoute: typeof PsbtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PsbtRoute: PsbtRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
