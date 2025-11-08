@@ -21,6 +21,7 @@ export default function Icon({
 
 	return (
 		<svg className={className} height={size} width={size}>
+			<title>{name}</title>
 			<use href={`/sprite.svg#${n}`} height={size} width={size} />
 		</svg>
 	);

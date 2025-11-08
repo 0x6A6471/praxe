@@ -20,11 +20,28 @@
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": ["react", "react/**", ":PACKAGE:", ":BLANK_LINE:", "@/**"]
+					}
+				}
+			}
+		}
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"a11y": {
+				"noAutofocus": "off"
+			},
+			"correctness": {
+				"useUniqueElementIds": "off"
+			}
 		}
 	},
 	"javascript": {

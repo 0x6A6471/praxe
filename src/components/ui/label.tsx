@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 
 import cn from "@/utils/class-names";
 
@@ -7,6 +7,7 @@ export default function Label({
 	...props
 }: React.ComponentProps<"label">) {
 	return (
+		// biome-ignore lint/a11y/noLabelWithoutControl: htmlFor passed via props
 		<label
 			data-slot="label"
 			className={cn(
