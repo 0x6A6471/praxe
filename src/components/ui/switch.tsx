@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui-components/react/switch";
 
 import cn from "@/utils/class-names";

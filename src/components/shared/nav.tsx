@@ -1,4 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
+
 import cn from "@/utils/class-names";
 import NetworkSwitch from "./network-switch";
 
@@ -11,6 +12,7 @@ export default function Nav() {
 			<Link to="/">
 				<img
 					src="praxe.svg"
+					alt="praxe logo"
 					className="pointer-events-none select-none size-6"
 				/>
 			</Link>

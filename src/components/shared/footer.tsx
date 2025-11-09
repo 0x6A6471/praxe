@@ -14,6 +14,7 @@ export default function Footer() {
 				</span>
 				<img
 					src="images/0x6A6471.svg"
+					alt="0x6A6471"
 					className="inline-block h-6 w-auto rounded-full relative z-10 transition-all duration-300"
 				/>
 				<span className="absolute top-1/2 left-[calc(50%-2px)] -translate-x-1/2 -translate-y-1/2 h-5 w-16 bg-gray-700 opacity-0 group-focus:opacity-80 group-hover:opacity-80 blur-md transition-opacity duration-300 rounded-full" />
