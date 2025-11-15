@@ -3,9 +3,15 @@ import type { PsbtTxInput } from "bitcoinjs-lib";
 import { Psbt } from "bitcoinjs-lib";
 import { Effect } from "effect";
 
-export type Input = PsbtInput & PsbtTxInput;
+type Input = PsbtInput & PsbtTxInput;
 
-export const processPsbt = (input: string): Effect.Effect<Input[], Error> => {
+export type ParsedPsbt = {
+	inputs: Input[];
+};
+
+export const processPsbt = (
+	input: string,
+): Effect.Effect<ParsedPsbt, Error> => {
 	const trimmedInput = input.trim();
 
 	const parseHex = Effect.try({
@@ -20,15 +26,15 @@ export const processPsbt = (input: string): Effect.Effect<Input[], Error> => {
 
 	return parseHex.pipe(
 		Effect.orElse(() => parseBase64),
-		Effect.map((psbt) =>
-			psbt.data.inputs.map(
+		Effect.map((psbt) => ({
+			inputs: psbt.data.inputs.map(
 				(bip174Input, index) =>
 					({
 						...bip174Input,
 						...psbt.txInputs[index],
 					}) as Input,
 			),
-		),
+		})),
 		Effect.mapError(
 			() => new Error("Invalid input. Not a valid hex or base64 string."),
 		),

@@ -1,5 +1,5 @@
 import Icon from "@/components/ui/icon";
-import type { Input } from "@/routes/psbt";
+import type { Input } from "@/services/psbt";
 
 type Props = {
 	inputs: Input[];

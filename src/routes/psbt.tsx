@@ -1,13 +1,10 @@
-import { useReducer } from "react";
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import type { PsbtInput } from "bip174";
-import type { PsbtTxInput } from "bitcoinjs-lib";
-import { Effect } from "effect";
 
 import Inputs from "@/components/psbt/inputs";
 import Button from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
-import { processPsbt } from "@/services/psbt";
+import usePsbt from "@/hooks/usePsbt";
 import cn from "@/utils/class-names";
 
 export const Route = createFileRoute("/psbt")({
@@ -21,66 +18,18 @@ export const Route = createFileRoute("/psbt")({
 	component: PsbtPage,
 });
 
-export type Input = PsbtInput & PsbtTxInput;
-
-type T = {
-	inputs: Input[];
-};
-type Action =
-	| { type: "SET_USER_INPUT"; payload: string }
-	| { type: "SET_PSBT"; payload: T }
-	| { type: "SET_ERROR"; payload: string | null };
-
-type State = {
-	user_input: string;
-	psbt: T;
-	error: string | null;
-};
-
-function reducer(state: State, action: Action): State {
-	switch (action.type) {
-		case "SET_USER_INPUT":
-			return { ...state, user_input: action.payload };
-		case "SET_PSBT":
-			return { ...state, psbt: action.payload };
-		case "SET_ERROR":
-			return { ...state, error: action.payload };
-	}
-}
-
 function PsbtPage() {
-	const [state, dispatch] = useReducer(reducer, {
-		user_input: "",
-		psbt: { inputs: [] },
-		error: null,
-	});
+	const [userInput, setUserInput] = useState("");
+	const { psbt, error, parse, setError, setPsbt } = usePsbt();
 
-	function handleTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-		// clear error on change
-		if (state.error) {
-			dispatch({ type: "SET_ERROR", payload: null });
-		}
-		// clear psbt on change
-		if (state.psbt.inputs?.length) {
-			dispatch({ type: "SET_PSBT", payload: { inputs: [] } });
-		}
-		// update input
-		dispatch({ type: "SET_USER_INPUT", payload: e.target.value });
+	function handlTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+		setError(null);
+		setUserInput(e.target.value);
 	}
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-
-		try {
-			const inputs = Effect.runSync(processPsbt(state.user_input));
-			dispatch({ type: "SET_PSBT", payload: { inputs } });
-			dispatch({ type: "SET_ERROR", payload: null });
-		} catch (err) {
-			dispatch({
-				type: "SET_ERROR",
-				payload: (err as Error).message ?? "Invalid PSBT",
-			});
-		}
+		parse(userInput);
 	}
 
 	return (
@@ -97,20 +46,20 @@ function PsbtPage() {
 							autoFocus
 							spellCheck={false}
 							className="mt-1 outline-0 ring-1 ring-gray-900 focus-visible:ring-gray-700 rounded-xl p-2 w-full min-h-52"
-							onChange={handleTextareaChange}
-							value={state.user_input}
+							onChange={handlTextareaChange}
+							value={userInput}
 						/>
 					</div>
 				</div>
 				<div
 					className={cn(
-						state.error ? "justify-between" : "justify-end",
+						error ? "justify-between" : "justify-end",
 						"mt-2 flex items-center",
 					)}
 				>
-					{state.error && (
+					{error && (
 						<div className="inline-flex items-center gap-x-2  text-sm text-error">
-							<Icon name="alert-triangle" /> <span>{state.error}</span>
+							<Icon name="alert-triangle" /> <span>{error}</span>
 						</div>
 					)}
 					<Button type="submit" size="sm">
@@ -118,7 +67,7 @@ function PsbtPage() {
 					</Button>
 				</div>
 			</form>
-			<Inputs inputs={state.psbt.inputs} />
+			<Inputs inputs={psbt?.inputs ?? []} />
 		</div>
 	);
 }
