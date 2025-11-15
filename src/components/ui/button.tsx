@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import cn from "@/utils/class-names";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
 	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0",
 	{
 		variants: {
@@ -34,21 +34,21 @@ interface ButtonProps
 	render?: useRender.RenderProp;
 }
 
-function Button({
+export default function Button({
 	className,
 	variant,
 	size,
-	render = <button type="button" />,
+	type = "button",
+	render = <button />,
 	...props
 }: ButtonProps) {
 	return useRender({
 		render,
 		props: {
 			"data-slot": "button",
+			type,
 			className: cn(buttonVariants({ variant, size, className })),
 			...props,
 		},
 	});
 }
-
-export { Button, buttonVariants };
