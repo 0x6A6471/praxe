@@ -1,9 +1,15 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	HeadContent,
+	Outlet,
+	Scripts,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import Footer from "@/components/shared/footer";
 import Nav from "@/components/shared/nav";
+import DisplayProvider from "@/context/display";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -48,9 +54,18 @@ export const Route = createRootRoute({
 			},
 		],
 	}),
-
-	shellComponent: RootDocument,
+	component: RootComponent,
 });
+
+function RootComponent() {
+	return (
+		<DisplayProvider>
+			<RootDocument>
+				<Outlet />
+			</RootDocument>
+		</DisplayProvider>
+	);
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
