@@ -2,7 +2,7 @@ import { Match } from "effect";
 
 type Props = {
 	name: string;
-	className: string;
+	className?: string;
 	variant?: "filled" | "line";
 	size?: string;
 };
