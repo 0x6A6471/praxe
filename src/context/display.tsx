@@ -8,49 +8,62 @@ type DisplayContextValue = {
 	network: Network;
 	toggleNetwork: () => void;
 	unit: Unit;
-	setUnit: (unit: Unit) => void;
+	toggleUnit: (unit: Unit) => void;
 };
 
 export const DisplayContext = createContext<DisplayContextValue>({
 	network: "testnet",
 	toggleNetwork: () => {},
 	unit: "sats",
-	setUnit: () => {},
+	toggleUnit: () => {},
 });
 
+function persist<T extends Network | Unit>(
+	key: "network" | "unit",
+	value: T,
+	setter: (value: T) => void,
+) {
+	localStorage.setItem(key, value);
+	setter(value);
+}
+
 export default function DisplayProvider({ children }: { children: ReactNode }) {
-	const initialNetwork: Network = Match.value(
-		localStorage.getItem("network"),
-	).pipe(
-		Match.when("mainnet", () => "mainnet" as const),
-		Match.orElse(() => "testnet" as const),
-	);
-	const initialUnit: Unit = Match.value(localStorage.getItem("unit")).pipe(
-		Match.when("btc", () => "btc" as const),
-		Match.orElse(() => "sats" as const),
-	);
-	const [network, setNetwork] = useState<Network>(initialNetwork);
-	const [unit, setUnit] = useState<Unit>(initialUnit);
+	const [network, setNetwork] = useState<Network>("testnet");
+	const [unit, setUnit] = useState<Unit>("sats");
 
 	useEffect(() => {
-		localStorage.setItem("unit", unit);
-	}, [unit]);
+		const storedNetwork = Match.value(localStorage.getItem("network")).pipe(
+			Match.when("mainnet", () => "mainnet" as const),
+			Match.orElse(() => "testnet" as const),
+		);
+		const storedUnit = Match.value(localStorage.getItem("unit")).pipe(
+			Match.when("btc", () => "btc" as const),
+			Match.orElse(() => "sats" as const),
+		);
 
-	useEffect(() => {
-		if (!localStorage.getItem("network")) {
-			localStorage.setItem("network", "testnet");
-		}
+		persist("network", storedNetwork, setNetwork);
+		persist("unit", storedUnit, setUnit);
 	}, []);
 
 	function toggleNetwork() {
 		Match.value(network).pipe(
 			Match.when("testnet", () => {
-				localStorage.setItem("network", "mainnet");
-				setNetwork("mainnet");
+				persist("network", "mainnet", setNetwork);
 			}),
 			Match.when("mainnet", () => {
-				localStorage.setItem("network", "testnet");
-				setNetwork("testnet");
+				persist("network", "testnet", setNetwork);
+			}),
+			Match.exhaustive,
+		);
+	}
+
+	function toggleUnit() {
+		Match.value(unit).pipe(
+			Match.when("btc", () => {
+				persist("unit", "sats", setUnit);
+			}),
+			Match.when("sats", () => {
+				persist("unit", "btc", setUnit);
 			}),
 			Match.exhaustive,
 		);
@@ -62,7 +75,7 @@ export default function DisplayProvider({ children }: { children: ReactNode }) {
 				network,
 				toggleNetwork,
 				unit,
-				setUnit,
+				toggleUnit,
 			}}
 		>
 			{children}

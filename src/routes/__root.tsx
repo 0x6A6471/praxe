@@ -1,5 +1,10 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	HeadContent,
+	Outlet,
+	Scripts,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import Footer from "@/components/shared/footer";
@@ -49,9 +54,18 @@ export const Route = createRootRoute({
 			},
 		],
 	}),
-
-	shellComponent: RootDocument,
+	component: RootComponent,
 });
+
+function RootComponent() {
+	return (
+		<DisplayProvider>
+			<RootDocument>
+				<Outlet />
+			</RootDocument>
+		</DisplayProvider>
+	);
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
@@ -66,13 +80,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="bg-black text-gray-300 selection:text-gray-950 selection:bg-gray-50 max-w-screen-lg mx-auto text-sm px-4 xl:px-0">
-				<DisplayProvider>
-					<div className="flex flex-col min-h-screen">
-						<Nav />
-						<main className="space-y-16 w-full py-16">{children}</main>
-						<Footer />
-					</div>
-				</DisplayProvider>
+				<div className="flex flex-col min-h-screen">
+					<Nav />
+					<main className="space-y-16 w-full py-16">{children}</main>
+					<Footer />
+				</div>
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
