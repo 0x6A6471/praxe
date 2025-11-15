@@ -17,5 +17,10 @@ export default function usePsbt() {
 		}
 	}
 
-	return { error, parse, psbt, setError, setPsbt };
+	function reset() {
+		setPsbt(undefined);
+		setError(null);
+	}
+
+	return { error, parse, psbt, reset };
 }
