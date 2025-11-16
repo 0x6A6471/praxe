@@ -39,7 +39,7 @@ export default function Button({
 	variant,
 	size,
 	type = "button",
-	render = <button />,
+	render = <button type={type} />,
 	...props
 }: ButtonProps) {
 	return useRender({
