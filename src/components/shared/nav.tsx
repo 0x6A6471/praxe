@@ -29,7 +29,7 @@ export default function Nav() {
 						PSBT
 					</Link>
 					{active && (
-						<div className="absolute h-1 w-1 rounded-full bg-mint -bottom-2 left-1/2 transform -translate-x-1/2" />
+						<div className="absolute h-1.5 w-1.5 rounded-full bg-primary -bottom-2.5 left-1/2 transform -translate-x-1/2" />
 					)}
 				</div>
 				<NetworkSwitch />

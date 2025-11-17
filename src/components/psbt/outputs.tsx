@@ -5,6 +5,7 @@ import ScriptText from "@/components/script-text";
 import Badge from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "@/components/ui/tooltip";
+import UnitSwitcher from "@/components/unit-switcher";
 import useDisplay from "@/hooks/useDisplay";
 import type { ParsedPsbt } from "@/services/psbt";
 import { getScriptType } from "@/utils/bitcoin";
@@ -16,21 +17,16 @@ type Props = {
 
 export default function Outputs({ outputs }: Props) {
 	const { unit } = useDisplay();
+
 	if (outputs.length === 0) return null;
-	// let display = useContext Ctx.Display.display_context in
-	// let tooltip_trigger value =
-	//   match display.unit with
-	//   | "btc" -> Number_fns.btc_of_sats value ^ " BTC"
-	//   | _ -> Js.Bigint.toString value ^ " sats"
-	// in
-	//
+
 	return (
 		<div>
 			<div className="flex items-center justify-between mb-4 ">
 				<h2 className="inline-flex items-center gap-x-2 text-lg">
 					<Icon name="output" /> <span>Outputs</span>
 				</h2>
-				{/*<Unit_switcher />*/}
+				<UnitSwitcher />
 			</div>
 			<ul className="space-y-4">
 				{outputs.map((output, index) => {
@@ -70,10 +66,10 @@ export default function Outputs({ outputs }: Props) {
 										{output.address && (
 											<div className="flex flex-col md:flex-row justify-between md:items-center">
 												<div className="flex items-center space-x-1">
-													<Badge>
+													<Badge variant="secondary">
 														{getScriptType(output.script as Buffer)}
 													</Badge>
-													<p className="text-xs">Lock script</p>
+													<p>Lock script</p>
 												</div>
 												<p className="font-mono">{output.address}</p>
 											</div>
