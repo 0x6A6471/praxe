@@ -1,7 +1,9 @@
 export function formatBtc(value: number): string {
-	return Number(value).toFixed(8);
+	return Number(value * 1e-8).toLocaleString("en-US", {
+		minimumFractionDigits: 0,
+		maximumFractionDigits: 8,
+	});
 }
-
 export function formatSats(value: number): string {
-	return (value / 100_000_000).toFixed(8);
+	return value.toLocaleString("en-US");
 }

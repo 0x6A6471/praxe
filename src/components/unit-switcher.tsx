@@ -30,18 +30,18 @@ export default function UnitSwitcher() {
 			<TooltipProvider delay={150}>
 				<Tooltip>
 					<TooltipTrigger>
-						<MenuTrigger
-							render={
-								<Button
-									variant="outline"
-									className="h-8 w-8 [&:is(:hover,[data-pressed])]:bg-popover"
-								>
-									<Icon name={unit} variant="filled" />
-								</Button>
-							}
-						/>
+						<TooltipPopup>Change display unit</TooltipPopup>
 					</TooltipTrigger>
-					<TooltipPopup>Change display unit</TooltipPopup>
+					<MenuTrigger
+						render={
+							<Button
+								variant="outline"
+								className="h-8 w-8 [&:is(:hover,[data-pressed])]:bg-popover"
+							>
+								<Icon name={unit} variant="filled" />
+							</Button>
+						}
+					/>
 				</Tooltip>
 			</TooltipProvider>
 			<MenuPopup align="start" sideOffset={4}>
