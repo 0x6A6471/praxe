@@ -16,7 +16,7 @@ export default function Inputs({ inputs }: Props) {
 	return (
 		<div>
 			<div className="flex items-center justify-between mb-4 ">
-				<h2 className="inline-flex items-center gap-x-2 text-lg text-gray-50">
+				<h2 className="inline-flex items-center gap-x-2 text-lg">
 					<Icon name="input" /> <span>Inputs</span>
 				</h2>
 			</div>
@@ -24,12 +24,12 @@ export default function Inputs({ inputs }: Props) {
 				{inputs.map((input, index) => (
 					<li
 						key={input.index}
-						className="rounded-xl bg-gray-950 flex flex-col"
+						className="rounded-xl bg-background flex flex-col"
 					>
-						<div className="border-b border-gray-900/50 p-4">
-							<h3 className="text-candle">inputs[{index}]</h3>
+						<div className="border-b border-border p-4">
+							<h3 className="text-primary">inputs[{index}]</h3>
 						</div>
-						<dl className="divide-y divide-gray-900/50">
+						<dl className="divide-y divide-border">
 							<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
 								<dt>Previous TX ID</dt>
 								<dd className="sm:col-span-3 font-mono">

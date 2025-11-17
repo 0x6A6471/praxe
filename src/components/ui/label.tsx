@@ -10,10 +10,7 @@ export default function Label({
 		// biome-ignore lint/a11y/noLabelWithoutControl: htmlFor passed via props
 		<label
 			data-slot="label"
-			className={cn(
-				"flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-				className,
-			)}
+			className={cn("inline-flex items-center gap-2 text-sm/4", className)}
 			{...props}
 		/>
 	);

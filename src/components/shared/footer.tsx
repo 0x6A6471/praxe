@@ -2,7 +2,7 @@ import Icon from "@/components/ui/icon";
 
 export default function Footer() {
 	return (
-		<footer className="py-4 mt-auto flex items-center justify-between text-sm text-gray-700 ">
+		<footer className="py-4 mt-auto flex items-center justify-between text-sm text-muted-foreground/50 ">
 			<a
 				href="https://0x6a6471.com"
 				target="_blank"
@@ -17,7 +17,7 @@ export default function Footer() {
 					alt="0x6A6471"
 					className="inline-block h-6 w-auto rounded-full relative z-10 transition-all duration-300"
 				/>
-				<span className="absolute top-1/2 left-[calc(50%-2px)] -translate-x-1/2 -translate-y-1/2 h-5 w-16 bg-gray-700 opacity-0 group-focus:opacity-80 group-hover:opacity-80 blur-md transition-opacity duration-300 rounded-full" />
+				<span className="absolute top-1/2 left-[calc(50%-2px)] -translate-x-1/2 -translate-y-1/2 h-5 w-16 bg-accent opacity-0 group-focus:opacity-80 group-hover:opacity-80 blur-md transition-opacity duration-300 rounded-full" />
 			</a>
 			<a
 				href="https://github.com/0x6A6471/praxe"

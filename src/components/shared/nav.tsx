@@ -21,7 +21,9 @@ export default function Nav() {
 					<Link
 						to="/psbt"
 						className={cn(
-							active ? "text-gray-200" : "text-gray-600 hover:text-gray-200",
+							active
+								? "text-foreground"
+								: "text-muted-foreground hover:text-foreground",
 						)}
 					>
 						PSBT
