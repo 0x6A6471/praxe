@@ -45,7 +45,7 @@ function PsbtPage() {
 							name="hex"
 							autoFocus
 							spellCheck={false}
-							className="mt-1 outline-0 ring-1 ring-gray-900 focus-visible:ring-gray-700 rounded-xl p-2 w-full min-h-52"
+							className="mt-1 outline-0 ring-1 ring-border focus-visible:ring-ring rounded-xl p-2 w-full min-h-52"
 							onChange={handlTextareaChange}
 							value={userInput}
 						/>
@@ -58,7 +58,7 @@ function PsbtPage() {
 					)}
 				>
 					{error && (
-						<div className="inline-flex items-center gap-x-2  text-sm text-error">
+						<div className="inline-flex items-center gap-x-2  text-sm text-destructive">
 							<Icon name="alert-triangle" /> <span>{error}</span>
 						</div>
 					)}

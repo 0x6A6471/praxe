@@ -79,7 +79,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				/>
 				<HeadContent />
 			</head>
-			<body className="bg-black text-gray-300 selection:text-gray-950 selection:bg-gray-50 max-w-screen-lg mx-auto text-sm px-4 xl:px-0">
+			<body className="bg-black text-foreground max-w-screen-lg mx-auto text-sm px-4 xl:px-0">
 				<div className="flex flex-col min-h-screen">
 					<Nav />
 					<main className="space-y-16 w-full py-16">{children}</main>
