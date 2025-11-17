@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Inputs from "@/components/psbt/inputs";
+import Outputs from "@/components/psbt/outputs";
 import Button from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import usePsbt from "@/hooks/usePsbt";
@@ -36,9 +37,7 @@ function PsbtPage() {
 		<div className="space-y-16 w-full">
 			<form onSubmit={handleSubmit}>
 				<div>
-					<label htmlFor="hex" className="text-gray-100">
-						Hex or base64
-					</label>
+					<label htmlFor="hex">Hex or base64</label>
 					<div>
 						<textarea
 							id="hex"
@@ -68,6 +67,7 @@ function PsbtPage() {
 				</div>
 			</form>
 			<Inputs inputs={psbt?.inputs ?? []} />
+			<Outputs outputs={psbt?.outputs ?? []} />
 		</div>
 	);
 }

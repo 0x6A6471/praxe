@@ -1,5 +1,5 @@
 import type { PsbtInput } from "bip174";
-import type { PsbtTxInput } from "bitcoinjs-lib";
+import type { PsbtTxInput, PsbtTxOutput } from "bitcoinjs-lib";
 import { Psbt } from "bitcoinjs-lib";
 import { Effect } from "effect";
 
@@ -7,6 +7,7 @@ type Input = PsbtInput & PsbtTxInput;
 
 export type ParsedPsbt = {
 	inputs: Input[];
+	outputs: PsbtTxOutput[];
 };
 
 export const processPsbt = (
@@ -34,6 +35,7 @@ export const processPsbt = (
 						...psbt.txInputs[index],
 					}) as Input,
 			),
+			outputs: psbt.txOutputs,
 		})),
 		Effect.mapError(
 			() => new Error("Invalid input. Not a valid hex or base64 string."),
