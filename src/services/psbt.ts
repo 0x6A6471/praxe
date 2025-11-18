@@ -4,7 +4,7 @@ import { Psbt } from "bitcoinjs-lib";
 import { Effect } from "effect";
 
 type Input = PsbtInput & PsbtTxInput;
-type Ops = {
+type Opts = {
 	network?: Network;
 	maximumFeeRate?: number;
 };
@@ -16,7 +16,7 @@ export type ParsedPsbt = {
 
 export const processPsbt = (
 	input: string,
-	opts?: Ops,
+	opts?: Opts,
 ): Effect.Effect<ParsedPsbt, Error> => {
 	const trimmedInput = input.trim();
 

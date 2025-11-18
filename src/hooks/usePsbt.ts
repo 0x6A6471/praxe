@@ -5,9 +5,9 @@ import { type ParsedPsbt, processPsbt } from "@/services/psbt";
 import useDisplay from "./useDisplay";
 
 export default function usePsbt() {
+	const { network } = useDisplay();
 	const [psbt, setPsbt] = useState<ParsedPsbt>();
 	const [error, setError] = useState<string | null>(null);
-	const { network } = useDisplay();
 	const lastInputRef = useRef<string>("");
 
 	const parse = useCallback(

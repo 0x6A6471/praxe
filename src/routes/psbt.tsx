@@ -20,8 +20,8 @@ export const Route = createFileRoute("/psbt")({
 });
 
 function PsbtPage() {
-	const [userInput, setUserInput] = useState("");
 	const { error, parse, psbt, reset } = usePsbt();
+	const [userInput, setUserInput] = useState("");
 
 	function handlTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
 		reset();
