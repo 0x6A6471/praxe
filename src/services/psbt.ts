@@ -1,9 +1,13 @@
 import type { PsbtInput } from "bip174";
-import type { PsbtTxInput, PsbtTxOutput } from "bitcoinjs-lib";
+import type { Network, PsbtTxInput, PsbtTxOutput } from "bitcoinjs-lib";
 import { Psbt } from "bitcoinjs-lib";
 import { Effect } from "effect";
 
 type Input = PsbtInput & PsbtTxInput;
+type Opts = {
+	network?: Network;
+	maximumFeeRate?: number;
+};
 
 export type ParsedPsbt = {
 	inputs: Input[];
@@ -12,16 +16,17 @@ export type ParsedPsbt = {
 
 export const processPsbt = (
 	input: string,
+	opts?: Opts,
 ): Effect.Effect<ParsedPsbt, Error> => {
 	const trimmedInput = input.trim();
 
 	const parseHex = Effect.try({
-		try: () => Psbt.fromHex(trimmedInput),
+		try: () => Psbt.fromHex(trimmedInput, { ...opts }),
 		catch: () => new Error("Invalid hex PSBT"),
 	});
 
 	const parseBase64 = Effect.try({
-		try: () => Psbt.fromBase64(trimmedInput),
+		try: () => Psbt.fromBase64(trimmedInput, { ...opts }),
 		catch: () => new Error("Invalid base64 PSBT"),
 	});
 

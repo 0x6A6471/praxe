@@ -1,8 +1,9 @@
 import { createContext, type ReactNode, useEffect, useState } from "react";
+import { type Network, networks } from "bitcoinjs-lib";
 import { Match } from "effect";
 
-type Network = "mainnet" | "testnet";
 type Unit = "btc" | "sats";
+type NetworkName = "bitcoin" | "testnet";
 
 type DisplayContextValue = {
 	network: Network;
@@ -12,28 +13,32 @@ type DisplayContextValue = {
 };
 
 export const DisplayContext = createContext<DisplayContextValue>({
-	network: "testnet",
+	network: networks.testnet,
 	toggleNetwork: () => {},
 	unit: "sats",
 	setUnit: () => {},
 });
 
-function persist<T extends Network | Unit>(
-	key: "network" | "unit",
-	value: T,
-	setter: (value: T) => void,
+function persistNetwork(
+	networkName: NetworkName,
+	setter: (value: Network) => void,
 ) {
-	localStorage.setItem(key, value);
-	setter(value);
+	localStorage.setItem("network", networkName);
+	setter(networkName === "bitcoin" ? networks.bitcoin : networks.testnet);
+}
+
+function persistUnit(unit: Unit, setter: (value: Unit) => void) {
+	localStorage.setItem("unit", unit);
+	setter(unit);
 }
 
 export default function DisplayProvider({ children }: { children: ReactNode }) {
-	const [network, setNetwork] = useState<Network>("testnet");
+	const [network, setNetwork] = useState<Network>(networks.testnet);
 	const [unit, setUnit] = useState<Unit>("sats");
 
 	useEffect(() => {
-		const storedNetwork = Match.value(localStorage.getItem("network")).pipe(
-			Match.when("mainnet", () => "mainnet" as const),
+		const storedNetworkName = Match.value(localStorage.getItem("network")).pipe(
+			Match.when("bitcoin", () => "bitcoin" as const),
 			Match.orElse(() => "testnet" as const),
 		);
 		const storedUnit = Match.value(localStorage.getItem("unit")).pipe(
@@ -41,25 +46,18 @@ export default function DisplayProvider({ children }: { children: ReactNode }) {
 			Match.orElse(() => "sats" as const),
 		);
 
-		persist("network", storedNetwork, setNetwork);
-		persist("unit", storedUnit, setUnit);
+		persistNetwork(storedNetworkName, setNetwork);
+		persistUnit(storedUnit, setUnit);
 	}, []);
 
 	function toggleNetwork() {
-		Match.value(network).pipe(
-			Match.when("testnet", () => {
-				persist("network", "mainnet", setNetwork);
-			}),
-			Match.when("mainnet", () => {
-				persist("network", "testnet", setNetwork);
-			}),
-			Match.exhaustive,
-		);
+		const newNetworkName: NetworkName =
+			network === networks.testnet ? "bitcoin" : "testnet";
+		persistNetwork(newNetworkName, setNetwork);
 	}
 
 	function handleSetUnit(unit: Unit) {
-		setUnit(unit);
-		persist("unit", unit, setUnit);
+		persistUnit(unit, setUnit);
 	}
 
 	return (

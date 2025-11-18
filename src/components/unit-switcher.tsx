@@ -29,19 +29,21 @@ export default function UnitSwitcher() {
 		<Menu open={isOpen} onOpenChange={setIsOpen}>
 			<TooltipProvider delay={150}>
 				<Tooltip>
-					<TooltipTrigger>
-						<TooltipPopup>Change display unit</TooltipPopup>
-					</TooltipTrigger>
-					<MenuTrigger
+					<TooltipTrigger
 						render={
-							<Button
-								variant="outline"
-								className="h-8 w-8 [&:is(:hover,[data-pressed])]:bg-popover"
-							>
-								<Icon name={unit} variant="filled" />
-							</Button>
+							<MenuTrigger
+								render={
+									<Button
+										variant="outline"
+										className="h-8 w-8 [&:is(:hover,[data-pressed])]:bg-popover"
+									>
+										<Icon name={unit} variant="filled" />
+									</Button>
+								}
+							/>
 						}
 					/>
+					<TooltipPopup>Change display unit</TooltipPopup>
 				</Tooltip>
 			</TooltipProvider>
 			<MenuPopup align="start" sideOffset={4}>
