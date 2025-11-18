@@ -50,10 +50,10 @@ export default function Inputs({ inputs }: Props) {
 									<dd className="sm:col-span-3 space-y-6">
 										<div className="flex flex-col md:flex-row justify-between md:items-center">
 											<div className="flex items-center space-x-2">
-												<Badge>
+												<Badge variant="secondary">
 													{getScriptType(input.witnessScript as Buffer)}
 												</Badge>
-												<p className="text-xs">Witness script</p>
+												<p>Witness script</p>
 											</div>
 										</div>
 										<div className="space-y-1 flex flex-col">

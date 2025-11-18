@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/*  ---break---*/
+@custom-variant dark (&:is(.dark *));
 
 body {
   -webkit-font-smoothing: antialiased;
@@ -141,5 +143,18 @@ code {
   select,
   textarea {
     font-size: 16px !important;
+  }
+}
+/*  ---break---*/
+.dark {
+  --destructive-foreground: var(--color-red-400);
+}
+/*  ---break---*/
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-black text-foreground;
   }
 }

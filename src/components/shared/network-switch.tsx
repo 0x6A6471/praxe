@@ -7,7 +7,11 @@ export default function NetworkSwitch() {
 
 	return (
 		<div className="flex items-center space-x-2">
-			<Switch id="network" onCheckedChange={toggleNetwork} />
+			<Switch
+				id="network"
+				checked={network === "mainnet"}
+				onCheckedChange={toggleNetwork}
+			/>
 			<Label htmlFor="network" className="w-14 text-right font-normal">
 				{network === "mainnet" ? "Mainnet" : "Testnet"}
 			</Label>

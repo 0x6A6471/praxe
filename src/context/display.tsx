@@ -8,14 +8,14 @@ type DisplayContextValue = {
 	network: Network;
 	toggleNetwork: () => void;
 	unit: Unit;
-	toggleUnit: (unit: Unit) => void;
+	setUnit: (unit: Unit) => void;
 };
 
 export const DisplayContext = createContext<DisplayContextValue>({
 	network: "testnet",
 	toggleNetwork: () => {},
 	unit: "sats",
-	toggleUnit: () => {},
+	setUnit: () => {},
 });
 
 function persist<T extends Network | Unit>(
@@ -57,16 +57,9 @@ export default function DisplayProvider({ children }: { children: ReactNode }) {
 		);
 	}
 
-	function toggleUnit() {
-		Match.value(unit).pipe(
-			Match.when("btc", () => {
-				persist("unit", "sats", setUnit);
-			}),
-			Match.when("sats", () => {
-				persist("unit", "btc", setUnit);
-			}),
-			Match.exhaustive,
-		);
+	function handleSetUnit(unit: Unit) {
+		setUnit(unit);
+		persist("unit", unit, setUnit);
 	}
 
 	return (
@@ -75,7 +68,7 @@ export default function DisplayProvider({ children }: { children: ReactNode }) {
 				network,
 				toggleNetwork,
 				unit,
-				toggleUnit,
+				setUnit: handleSetUnit,
 			}}
 		>
 			{children}
