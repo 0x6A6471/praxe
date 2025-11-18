@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Inputs from "@/components/psbt/inputs";
+import Metadata from "@/components/psbt/metadata";
 import Outputs from "@/components/psbt/outputs";
 import Button from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -66,8 +67,13 @@ function PsbtPage() {
 					</Button>
 				</div>
 			</form>
-			<Inputs inputs={psbt?.inputs ?? []} />
-			<Outputs outputs={psbt?.outputs ?? []} />
+			{psbt && (
+				<>
+					<Metadata version={psbt.version} locktime={psbt.locktime} />
+					<Inputs inputs={psbt.inputs} />
+					<Outputs outputs={psbt.outputs} />
+				</>
+			)}
 		</div>
 	);
 }
