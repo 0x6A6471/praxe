@@ -10,6 +10,8 @@ type Opts = {
 };
 
 export type ParsedPsbt = {
+	locktime: number;
+	version: number;
 	inputs: Input[];
 	outputs: PsbtTxOutput[];
 };
@@ -33,6 +35,8 @@ export const processPsbt = (
 	return parseHex.pipe(
 		Effect.orElse(() => parseBase64),
 		Effect.map((psbt) => ({
+			locktime: psbt.locktime,
+			version: psbt.version,
 			inputs: psbt.data.inputs.map(
 				(bip174Input, index) =>
 					({
