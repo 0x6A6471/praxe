@@ -24,12 +24,12 @@ export const processPsbt = (
 
 	const parseHex = Effect.try({
 		try: () => Psbt.fromHex(trimmedInput, { ...opts }),
-		catch: () => new Error("Invalid hex PSBT"),
+		catch: (error) => error,
 	});
 
 	const parseBase64 = Effect.try({
 		try: () => Psbt.fromBase64(trimmedInput, { ...opts }),
-		catch: () => new Error("Invalid base64 PSBT"),
+		catch: (error) => error,
 	});
 
 	return parseHex.pipe(
@@ -46,8 +46,8 @@ export const processPsbt = (
 			),
 			outputs: psbt.txOutputs,
 		})),
-		Effect.mapError(
-			() => new Error("Invalid input. Not a valid hex or base64 string."),
+		Effect.mapError((error) =>
+			error instanceof Error ? error : new Error("Unknown error parsing PSBT"),
 		),
 	);
 };
