@@ -78,8 +78,11 @@ export default function Outputs({ outputs }: Props) {
 											{script
 												.toASM(output.script)
 												.split(" ")
-												.map((text) => (
-													<ScriptText key={text} label={text} />
+												.map((text, idx) => (
+													<ScriptText
+														key={`${output.address}-script-${idx}`}
+														label={text}
+													/>
 												))}
 										</div>
 									</dd>

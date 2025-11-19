@@ -40,10 +40,17 @@ export default function Inputs({ inputs }: Props) {
 								<dt>Previous output index</dt>
 								<dd className="sm:col-span-3">{input.index}</dd>
 							</div>
-							<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
-								<dt>Sequence</dt>
-								<dd className="sm:col-span-3 space-y-6">{input.sequence}</dd>
-							</div>
+							{input.sequence && (
+								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
+									<dt>Sequence</dt>
+									<dd className="sm:col-span-3 flex items-center gap-x-2">
+										<p>{input.sequence}</p>
+										<p className="text-muted-foreground font-mono">
+											(0x{input.sequence.toString(16)})
+										</p>
+									</dd>
+								</div>
+							)}
 							{input.witnessScript && (
 								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
 									<dt>Script</dt>
@@ -60,8 +67,11 @@ export default function Inputs({ inputs }: Props) {
 											{script
 												.toASM(input.witnessScript)
 												.split(" ")
-												.map((text) => (
-													<ScriptText key={text} label={text} />
+												.map((text, idx) => (
+													<ScriptText
+														key={`${input.index}-script-${idx}`}
+														label={text}
+													/>
 												))}
 										</div>
 									</dd>
