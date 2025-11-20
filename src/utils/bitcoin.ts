@@ -12,10 +12,10 @@ export function isOpCode(value: string): boolean {
 	return typeof value === "string" && value.startsWith("OP_");
 }
 
-export const getScriptType = (script: Buffer): string => {
+export const getScriptType = (script: Uint8Array): string => {
 	const tryPayment = (
 		name: string,
-		fn: (config: { output: Buffer }) => Payment,
+		fn: (config: { output: Uint8Array }) => Payment,
 	) => {
 		try {
 			return fn({ output: script }) ? name : null;
