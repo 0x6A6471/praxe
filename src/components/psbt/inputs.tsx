@@ -4,7 +4,11 @@ import ScriptText from "@/components/script-text";
 import Badge from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import type { ParsedPsbt } from "@/services/psbt";
-import { getScriptType, hashToTxid } from "@/utils/bitcoin";
+import {
+	extractWitnessStack,
+	getScriptType,
+	hashToTxid,
+} from "@/utils/bitcoin";
 
 type Props = {
 	inputs: ParsedPsbt["inputs"];
@@ -99,6 +103,30 @@ export default function Inputs({ inputs }: Props) {
 														label={text}
 													/>
 												))}
+										</div>
+									</dd>
+								</div>
+							)}
+							{input.finalScriptWitness && (
+								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
+									<dt>Witness</dt>
+									<dd className="sm:col-span-3 space-y-6">
+										<div className="flex flex-col md:flex-row justify-between md:items-center">
+											<div className="flex items-center space-x-2">
+												<Badge variant="secondary">
+													{getScriptType(input.finalScriptWitness, true)}
+												</Badge>
+											</div>
+										</div>
+										<div className="space-y-1 flex flex-col">
+											{extractWitnessStack(input.finalScriptWitness).map(
+												(text, idx) => (
+													<ScriptText
+														key={`${input.index}-script-${idx}`}
+														label={text}
+													/>
+												),
+											)}
 										</div>
 									</dd>
 								</div>
