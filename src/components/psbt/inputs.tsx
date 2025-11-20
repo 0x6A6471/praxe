@@ -58,7 +58,7 @@ export default function Inputs({ inputs }: Props) {
 										<div className="flex flex-col md:flex-row justify-between md:items-center">
 											<div className="flex items-center space-x-2">
 												<Badge variant="secondary">
-													{getScriptType(input.witnessScript as Buffer)}
+													{getScriptType(input.witnessScript)}
 												</Badge>
 												<p>Witness script</p>
 											</div>
@@ -66,6 +66,32 @@ export default function Inputs({ inputs }: Props) {
 										<div className="space-y-1 flex flex-col">
 											{script
 												.toASM(input.witnessScript)
+												.split(" ")
+												.map((text, idx) => (
+													<ScriptText
+														key={`${input.index}-script-${idx}`}
+														label={text}
+													/>
+												))}
+										</div>
+									</dd>
+								</div>
+							)}
+							{input.finalScriptSig && (
+								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
+									<dt>Script</dt>
+									<dd className="sm:col-span-3 space-y-6">
+										<div className="flex flex-col md:flex-row justify-between md:items-center">
+											<div className="flex items-center space-x-2">
+												<Badge variant="secondary">
+													{getScriptType(input.finalScriptSig)}
+												</Badge>
+												<p>Unlock script</p>
+											</div>
+										</div>
+										<div className="space-y-1 flex flex-col">
+											{script
+												.toASM(input.finalScriptSig)
 												.split(" ")
 												.map((text, idx) => (
 													<ScriptText
