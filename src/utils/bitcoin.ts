@@ -12,7 +12,24 @@ export function isOpCode(value: string): boolean {
 	return typeof value === "string" && value.startsWith("OP_");
 }
 
-export const getScriptType = (script: Uint8Array): string => {
+export const getScriptType = (
+	script: Uint8Array,
+	isWitness?: boolean,
+): string => {
+	if (isWitness) {
+		const items = extractWitnessStack(script);
+		// p2wpkh has 2 items (signature + pubkey)
+		if (items.length === 2) {
+			const lastItem = items[items.length - 1];
+			// if last item is 33 or 65 bytes (pubkey length in hex), it's p2wpkh
+			if (lastItem.length === 66 || lastItem.length === 130) {
+				return "p2wpkh";
+			}
+		}
+
+		// otherwise it's p2wsh (witness script hash)
+		return "p2wsh";
+	}
 	const tryPayment = (
 		name: string,
 		fn: (config: { output: Uint8Array }) => Payment,
@@ -36,3 +53,24 @@ export const getScriptType = (script: Uint8Array): string => {
 		].find((r) => r !== null) ?? "unknown"
 	);
 };
+
+export function extractWitnessStack(witness: Uint8Array): string[] {
+	const hexString = Array.from(witness)
+		.map((b) => b.toString(16).padStart(2, "0"))
+		.join("");
+
+	let offset = 0;
+	const itemCount = parseInt(hexString.slice(offset, offset + 2), 16);
+	offset += 2;
+
+	const items: string[] = [];
+	for (let i = 0; i < itemCount; i++) {
+		const length = parseInt(hexString.slice(offset, offset + 2), 16);
+		offset += 2;
+		const item = hexString.slice(offset, offset + length * 2);
+		items.push(item);
+		offset += length * 2;
+	}
+
+	return items;
+}
