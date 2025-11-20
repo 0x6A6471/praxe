@@ -19,7 +19,7 @@ export default function Metadata({ version, locktime }: Props) {
 					<dl className="divide-y divide-border">
 						<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
 							<dt>Version</dt>
-							<dd className="sm:col-span-3 font-mono">{version}</dd>{" "}
+							<dd className="sm:col-span-3 font-mono">{version}</dd>
 						</div>
 						<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
 							<dt>Locktime</dt>
