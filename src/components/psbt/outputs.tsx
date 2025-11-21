@@ -1,15 +1,12 @@
-import { script } from "bitcoinjs-lib";
 import { Match } from "effect";
 
-import ScriptText from "@/components/script-text";
-import Badge from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "@/components/ui/tooltip";
 import UnitSwitcher from "@/components/unit-switcher";
 import useDisplay from "@/hooks/useDisplay";
 import type { ParsedPsbt } from "@/services/psbt";
-import { getScriptType } from "@/utils/bitcoin";
 import { formatBtc, formatSats } from "@/utils/formatters";
+import Script from "./script";
 
 type Props = {
 	outputs: ParsedPsbt["outputs"];
@@ -60,33 +57,11 @@ export default function Outputs({ outputs }: Props) {
 										</Tooltip>
 									</dd>
 								</div>
-								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
-									<dt>Script</dt>
-									<dd className="sm:col-span-3 space-y-6">
-										{output.address && (
-											<div className="flex flex-col md:flex-row justify-between md:items-center">
-												<div className="flex items-center space-x-1">
-													<Badge variant="secondary">
-														{getScriptType(output.script as Buffer)}
-													</Badge>
-													<p>Lock script</p>
-												</div>
-												<p className="font-mono">{output.address}</p>
-											</div>
-										)}
-										<div className="space-y-1 flex flex-col">
-											{script
-												.toASM(output.script)
-												.split(" ")
-												.map((text, idx) => (
-													<ScriptText
-														key={`${output.address}-script-${idx}`}
-														label={text}
-													/>
-												))}
-										</div>
-									</dd>
-								</div>
+								<Script
+									label="Lock script"
+									script={output.script}
+									address={output.address}
+								/>
 							</dl>
 						</li>
 					);

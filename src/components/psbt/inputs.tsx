@@ -1,14 +1,7 @@
-import { script } from "bitcoinjs-lib";
-
-import ScriptText from "@/components/script-text";
-import Badge from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import type { ParsedPsbt } from "@/services/psbt";
-import {
-	extractWitnessStack,
-	getScriptType,
-	hashToTxid,
-} from "@/utils/bitcoin";
+import { hashToTxid } from "@/utils/bitcoin";
+import Script from "./script";
 
 type Props = {
 	inputs: ParsedPsbt["inputs"];
@@ -55,82 +48,10 @@ export default function Inputs({ inputs }: Props) {
 									</dd>
 								</div>
 							)}
-							{input.witnessScript && (
-								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
-									<dt>Script</dt>
-									<dd className="sm:col-span-3 space-y-6">
-										<div className="flex flex-col md:flex-row justify-between md:items-center">
-											<div className="flex items-center space-x-2">
-												<Badge variant="secondary">
-													{getScriptType(input.witnessScript)}
-												</Badge>
-												<p>Witness script</p>
-											</div>
-										</div>
-										<div className="space-y-1 flex flex-col">
-											{script
-												.toASM(input.witnessScript)
-												.split(" ")
-												.map((text, idx) => (
-													<ScriptText
-														key={`${input.index}-script-${idx}`}
-														label={text}
-													/>
-												))}
-										</div>
-									</dd>
-								</div>
-							)}
-							{input.finalScriptSig && (
-								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
-									<dt>Script</dt>
-									<dd className="sm:col-span-3 space-y-6">
-										<div className="flex flex-col md:flex-row justify-between md:items-center">
-											<div className="flex items-center space-x-2">
-												<Badge variant="secondary">
-													{getScriptType(input.finalScriptSig)}
-												</Badge>
-												<p>Unlock script</p>
-											</div>
-										</div>
-										<div className="space-y-1 flex flex-col">
-											{script
-												.toASM(input.finalScriptSig)
-												.split(" ")
-												.map((text, idx) => (
-													<ScriptText
-														key={`${input.index}-script-${idx}`}
-														label={text}
-													/>
-												))}
-										</div>
-									</dd>
-								</div>
-							)}
-							{input.finalScriptWitness && (
-								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
-									<dt>Witness</dt>
-									<dd className="sm:col-span-3 space-y-6">
-										<div className="flex flex-col md:flex-row justify-between md:items-center">
-											<div className="flex items-center space-x-2">
-												<Badge variant="secondary">
-													{getScriptType(input.finalScriptWitness, true)}
-												</Badge>
-											</div>
-										</div>
-										<div className="space-y-1 flex flex-col">
-											{extractWitnessStack(input.finalScriptWitness).map(
-												(text, idx) => (
-													<ScriptText
-														key={`${input.index}-script-${idx}`}
-														label={text}
-													/>
-												),
-											)}
-										</div>
-									</dd>
-								</div>
-							)}
+							<Script label="Witness script" script={input.witnessScript} />
+							<Script label="Redeem script" script={input.redeemScript} />
+							<Script label="Unlock script" script={input.finalScriptSig} />
+							<Script label="Final witness" script={input.finalScriptWitness} />
 						</dl>
 					</li>
 				))}
