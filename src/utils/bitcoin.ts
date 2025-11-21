@@ -1,17 +1,5 @@
 import { type Payment, payments, Transaction } from "bitcoinjs-lib";
 
-export function getOutputScriptFromNonWitnessUtxo(
-	nonWitnessUtxo: Uint8Array,
-	inputIndex: number,
-): Uint8Array | undefined {
-	try {
-		const tx = Transaction.fromBuffer(nonWitnessUtxo);
-		return tx.outs[inputIndex]?.script;
-	} catch {
-		return undefined;
-	}
-}
-
 export function hashToTxid(hash: Uint8Array): string {
 	let result = "";
 	for (let i = hash.length - 1; i >= 0; i--) {
@@ -93,4 +81,16 @@ export function extractWitnessStack(witness: Uint8Array): string[] {
 	}
 
 	return items;
+}
+
+export function getOutputScriptFromNonWitnessUtxo(
+	nonWitnessUtxo: Uint8Array,
+	inputIndex: number,
+): Uint8Array | undefined {
+	try {
+		const tx = Transaction.fromBuffer(nonWitnessUtxo);
+		return tx.outs[inputIndex]?.script;
+	} catch {
+		return undefined;
+	}
 }
