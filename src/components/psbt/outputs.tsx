@@ -1,5 +1,6 @@
 import { Match } from "effect";
 
+import Badge from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "@/components/ui/tooltip";
 import UnitSwitcher from "@/components/unit-switcher";
@@ -22,6 +23,7 @@ export default function Outputs({ outputs }: Props) {
 			<div className="flex items-center justify-between mb-4 ">
 				<h2 className="inline-flex items-center gap-x-2 text-lg">
 					<Icon name="output" /> <span>Outputs</span>
+					<Badge>{outputs.length}</Badge>
 				</h2>
 				<UnitSwitcher />
 			</div>
@@ -45,11 +47,11 @@ export default function Outputs({ outputs }: Props) {
 							className="rounded-xl bg-background flex flex-col"
 						>
 							<div className="border-b border-border p-4">
-								<h3 className="text-primary">outputs[{index}]</h3>
+								<h3 className="text-primary">#{index}</h3>
 							</div>
 							<dl className="divide-y divide-border">
 								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
-									<dt>Value</dt>
+									<dt className="text-muted-foreground">Value</dt>
 									<dd className="sm:col-span-3">
 										<Tooltip>
 											<TooltipTrigger>{displayValue}</TooltipTrigger>

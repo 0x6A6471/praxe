@@ -47,12 +47,14 @@ export default function Script({
 
 	return (
 		<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
-			<dt>{label}</dt>
-			<dd className="sm:col-span-3 space-y-6">
-				<div className="flex flex-col md:flex-row justify-between md:items-center">
-					<Badge variant="secondary">{scriptType}</Badge>
-					{address && <p className="font-mono">{address}</p>}
-				</div>
+			<dt className="flex gap-x-1 sm:flex-col text-muted-foreground">
+				<p>{label}</p>
+				<Badge variant="secondary" className="text-muted-foreground">
+					{scriptType}
+				</Badge>
+			</dt>
+			<dd className="sm:col-span-3">
+				{address && <p className="font-mono mb-6">{address}</p>}
 				<div className="space-y-1 flex flex-col">
 					{parsedScript.map((text, idx) => (
 						<ScriptText
