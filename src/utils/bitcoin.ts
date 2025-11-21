@@ -1,4 +1,16 @@
-import { type Payment, payments } from "bitcoinjs-lib";
+import { type Payment, payments, Transaction } from "bitcoinjs-lib";
+
+export function getOutputScriptFromNonWitnessUtxo(
+	nonWitnessUtxo: Uint8Array,
+	inputIndex: number,
+): Uint8Array | undefined {
+	try {
+		const tx = Transaction.fromBuffer(nonWitnessUtxo);
+		return tx.outs[inputIndex]?.script;
+	} catch {
+		return undefined;
+	}
+}
 
 export function hashToTxid(hash: Uint8Array): string {
 	let result = "";
@@ -15,6 +27,8 @@ export function isOpCode(value: string): boolean {
 export const getScriptType = (
 	script: Uint8Array,
 	isWitness?: boolean,
+	isUnlockScript?: boolean,
+	outputScript?: Uint8Array,
 ): string => {
 	if (isWitness) {
 		const items = extractWitnessStack(script);
@@ -30,6 +44,12 @@ export const getScriptType = (
 		// otherwise it's p2wsh (witness script hash)
 		return "p2wsh";
 	}
+
+	// for unlock scripts, check the output script being spent
+	if (isUnlockScript && outputScript) {
+		return getScriptType(outputScript, false, false);
+	}
+
 	const tryPayment = (
 		name: string,
 		fn: (config: { output: Uint8Array }) => Payment,
