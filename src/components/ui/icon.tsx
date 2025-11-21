@@ -1,11 +1,11 @@
 import { Match } from "effect";
+
 import sprite from "/sprite.svg?url";
-import type { IconBase, IconVariant } from "@/utils/icons";
 
 type Props = {
-	name: IconBase;
+	name: string;
 	className?: string;
-	variant?: IconVariant;
+	variant?: "line" | "filled";
 	size?: string;
 };
 
