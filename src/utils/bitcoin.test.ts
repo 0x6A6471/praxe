@@ -21,7 +21,7 @@ describe("bitcoin utils", () => {
 			const txid = hashToTxid(hash);
 
 			expect(txid).toBe(
-				"5ddabb27b8845f5247975c8a5ba7c6f336c4570708ebe230caf6db5217ae858",
+				"75ddabb27b8845f5247975c8a5ba7c6f336c4570708ebe230caf6db5217ae858",
 			);
 		});
 
