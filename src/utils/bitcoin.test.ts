@@ -10,7 +10,7 @@ import {
 	isOpCode,
 } from "./bitcoin";
 
-describe("Bitcoin utils", () => {
+describe("bitcoin utils", () => {
 	describe("hashToTxid", () => {
 		it("should convert a 32-byte hash to txid format (reversed)", () => {
 			const hash = new Uint8Array([
