@@ -1,6 +1,6 @@
 type = "javascript"
+pages_build_output_dir = "dist/client"
 
 [build]
 command = "bun install && bun run build"
 cwd = "./"
-root_dir = "dist"
