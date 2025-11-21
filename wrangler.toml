@@ -1,0 +1,6 @@
+type = "javascript"
+
+[build]
+command = "bun install && bun run build"
+cwd = "./"
+root_dir = "dist"
