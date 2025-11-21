@@ -4,6 +4,7 @@ export function formatBtc(value: number): string {
 		maximumFractionDigits: 8,
 	});
 }
+
 export function formatSats(value: number): string {
 	return value.toLocaleString("en-US");
 }
