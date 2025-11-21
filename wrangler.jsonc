@@ -4,14 +4,4 @@
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
-  "routes": [
-    {
-      "pattern": "praxe.io/*",
-      "zone_name": "praxe.io"
-    },
-    {
-      "pattern": "www.praxe.io/*",
-      "zone_name": "praxe.io"
-    }
-  ]
 }
