@@ -23,13 +23,26 @@ type Props = {
 		| PsbtTxOutput["script"];
 	// address is only used for lock script
 	address?: string;
+	// output script being spent (for unlock script type detection)
+	outputScript?: Uint8Array;
 };
 
-export default function Script({ label, script, address }: Props) {
+export default function Script({
+	label,
+	script,
+	address,
+	outputScript,
+}: Props) {
 	if (!script) return null;
 
 	const isFinalWitnessScript = label === "Final witness";
-	const scriptType = getScriptType(script, isFinalWitnessScript);
+	const isUnlockScript = label === "Unlock script";
+	const scriptType = getScriptType(
+		script,
+		isFinalWitnessScript,
+		isUnlockScript,
+		outputScript,
+	);
 	const parsedScript = parseScript(script, isFinalWitnessScript);
 
 	return (
