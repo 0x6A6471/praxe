@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const spriteFile = path.join(__dirname, "../public/sprite.svg");
@@ -11,12 +11,8 @@ const outputFile = path.join(__dirname, "../src/types/icon.ts");
 const spriteContent = fs.readFileSync(spriteFile, "utf-8");
 // get all symbol IDs from the sprite
 const symbolRegex = /<symbol\s+id="([^"]+)"/g;
-const iconIds = [];
-let match;
-
-while ((match = symbolRegex.exec(spriteContent)) !== null) {
-	iconIds.push(match[1]);
-}
+const matches = Array.from(spriteContent.matchAll(symbolRegex));
+const iconIds = matches.map((match) => match[1]);
 
 iconIds.sort();
 
