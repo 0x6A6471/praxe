@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="public/praxe.svg?sanitize=true" alt="Praxe logo" width="100">
-</p>
+<img src="public/praxe.svg?sanitize=true" alt="Praxe logo" width="100">
 [![CI status](https://github.com/0x6A6471/praxe/actions/workflows/ci.yml/badge.svg)](https://github.com/0x6A6471/praxe/actions/workflows/ci.yml) [![deployed Cloudflare](https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.praxe.io) [![code style: biome](https://img.shields.io/badge/code_style-biome-60a5fa.svg)](https://biomejs.dev)
 
 # Praxe
