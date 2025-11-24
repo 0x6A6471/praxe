@@ -2,7 +2,7 @@
   <img src="public/praxe.svg?sanitize=true" alt="Praxe logo" width="100">
 </p>
 <p align="center">
-  <a href="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml"><img src="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml/badge.svg" alt="CI status"></a> <a href="https://www.praxe.io"><img src="https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white" alt="deployed Cloudflare"></a> <a href="https://biomejs.dev"><img src="https://img.shields.io/badge/code_style-biome-60a5fa.svg" alt="code style: biome"></a>
+  <a href="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml"><img src="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml/badge.svg" alt="CI status"></a> <a href="https://www.praxe.io"><img src="https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white" alt="deployed Cloudflare"></a> <a href="https://biomejs.dev"><img src="https://img.shields.io/badge/code_style-biome-60a5fa.svg?logo=biome&logoColor=white" alt="code style: biome"></a>
 </p>
 
 # Praxe
