@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/praxe.svg?sanitize=true" alt="Praxe logo" width="200">
+  <img src="public/praxe.svg?sanitize=true" alt="Praxe logo" width="100">
 </p>
 
 <p align="center">
