@@ -7,9 +7,7 @@
 
 # Praxe
 
-Praxe is a user-friendly interface for Bitcoin transaction exploration and analysis. It provides a modern, intuitive way to inspect and understand Partially Signed Bitcoin Transactions (PSBTs) using [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib) for core Bitcoin functionality.
-
-Whether you're debugging transaction construction, verifying transaction details before signing, or learning how Bitcoin transactions work, Praxe makes it easy to explore every aspect of a PSBT in real-time.
+Praxe is a user-friendly interface for Bitcoin transaction exploration and analysis.
 
 > [!WARNING]
 > Praxe is a work in progress.
@@ -26,15 +24,6 @@ bun install
 `bun run dev`
 
 The application will be available at [http://localhost:5173](http://localhost:5173)
-
-## Development scripts
-- `bun run dev`: start development server
-- `bun run build`: build for production
-- `bun run test`: run test suite
-- `bun run lint`: lint code with Biome
-- `bun run format`: format code with Biome
-- `bun run check`: run lint & format checks
-- `bun run icongen`: generate type-safe icons from `public/sprite.svg`
 
 ## Acknowledgements
 This project is inspired by and built upon great open-source tools:
@@ -53,6 +42,6 @@ This project is inspired by and built upon great open-source tools:
 
 ## Roadmap
 - [x] PSBT parsing and analysis
-- [ ] Raw transaction explorer
-- [ ] Payment protocol support
+- [ ] Transaction support
+- [ ] Payment support
 
