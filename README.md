@@ -31,10 +31,10 @@ This project is inspired by and built upon great open-source tools:
 ### Bitcoin resources & libraries
 - [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib) for core Bitcoin functionality
 - [bip174](https://github.com/bitcoinjs/bip174) for PSBT specification
+- [Bitcoin Design](https://bitcoin.design) for icons and design standards
 - [Bitcoin Core Tech](https://bitcoincore.tech) for inspiration
 
-### Framework, design & UI
-- [Bitcoin Design](https://bitcoin.design) for icons and design standards
+### Tools
 - [Base UI](https://base-ui.com) for accessible component primitives
 - [TanStack](https://tanstack.com) for full-stack React utilities
 - [Tailwind CSS](https://tailwindcss.com) for styling
