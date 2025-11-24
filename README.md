@@ -3,13 +3,13 @@
 </p>
 
 <p align="center">
-  <a href="https://www.praxe.io">
-    <img src="https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white" alt="Deployed on Cloudflare">
-  </a>
-  <a href="https://github.com/0x6A6471/praxe/actions">
+  <a href="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml">
     <img src="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml/badge.svg" alt="CI status">
   </a>
-  <a href="https://biomejs.dev">
+  <a href="https://www.praxe.io" style="text-decoration: none;">
+    <img src="https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white" alt="Deployed on Cloudflare">
+  </a>
+  <a href="https://biomejs.dev" style="text-decoration: none;">
     <img src="https://img.shields.io/badge/code_style-biome-60a5fa.svg?style=flat-square" alt="Code style: biome">
   </a>
 </p>
