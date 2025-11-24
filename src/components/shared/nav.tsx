@@ -8,7 +8,7 @@ export default function Nav() {
 	const active = href === "/psbt";
 
 	return (
-		<nav className="flex items-center justify-between py-2">
+		<nav className="flex items-center justify-between py-4">
 			<Link to="/">
 				<img
 					src="praxe.svg"
