@@ -30,8 +30,8 @@ This project is inspired by and built upon great open-source tools:
 
 ### Bitcoin resources & libraries
 - [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib) for core Bitcoin functionality
-- [Bitcoin Core Tech](https://bitcoincore.tech/apps/bitcoinjs-ui/index.html) for inspiration
-- [BIP174](https://github.com/bitcoinjs/bip174) for PSBT specification
+- [bip174](https://github.com/bitcoinjs/bip174) for PSBT specification
+- [Bitcoin Core Tech](https://bitcoincore.tech) for inspiration
 
 ### Framework, design & UI
 - [Bitcoin Design](https://bitcoin.design) for icons and design standards
