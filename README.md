@@ -42,6 +42,7 @@ This project is inspired by and built upon great open-source tools:
 
 ## Roadmap
 - [x] PSBT parsing and analysis
+- [ ] PSBT construction, signing, etc.
 - [ ] Transaction support
 - [ ] Payment support
 
