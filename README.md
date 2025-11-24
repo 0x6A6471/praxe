@@ -1,7 +1,21 @@
 <p align="center">
   <img src="public/praxe.svg?sanitize=true" alt="Praxe logo" width="100">
 </p>
-[![CI status](https://github.com/0x6A6471/praxe/actions/workflows/ci.yml/badge.svg)](https://github.com/0x6A6471/praxe/actions/workflows/ci.yml) [![deployed Cloudflare](https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.praxe.io) [![code style: biome](https://img.shields.io/badge/code_style-biome-60a5fa.svg?style=flat-square)](https://biomejs.dev)
+<p align="center">
+  <a href="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml">
+    <img src="https://github.com/0x6A6471/praxe/actions/workflows/ci.yml/badge.svg" alt="CI status">
+  </a>
+</p>
+<p align="center">
+  <a href="https://www.praxe.io" style="text-decoration: none;">
+    <img src="https://img.shields.io/badge/deployed-Cloudflare-F38020?logo=cloudflare&logoColor=white" alt="Deployed on Cloudflare">
+  </a>
+</p>
+<p align="center">
+  <a href="https://biomejs.dev" style="text-decoration: none;">
+    <img src="https://img.shields.io/badge/code_style-biome-60a5fa.svg?style=flat-square" alt="Code style: biome">
+  </a>
+</p>
 
 # Praxe
 
