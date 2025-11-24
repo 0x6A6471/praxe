@@ -25,7 +25,7 @@ export default function Matrix() {
 		const fontSize = 16;
 		const columns = Math.floor(canvas.width / fontSize);
 
-		// Initialize drops if needed
+		// initialize drops if needed
 		if (dropsRef.current.length !== columns) {
 			dropsRef.current = Array.from(
 				{ length: columns },
@@ -37,7 +37,7 @@ export default function Matrix() {
 		const animate = () => {
 			ctx.fillStyle = "rgba(0, 0, 0, 0.02)";
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			ctx.fillStyle = "rgba(0, 255, 0, 0.05)";
+			ctx.fillStyle = "rgba(0, 255, 0, 0.075)";
 			ctx.font = `${fontSize}px 'Space Mono', monospace`;
 			ctx.textAlign = "center";
 
@@ -49,7 +49,7 @@ export default function Matrix() {
 				if (y > canvas.height && Math.random() > 0.995) {
 					drops[i] = 0;
 				} else {
-					drops[i] += 0.3; // Much slower movement
+					drops[i] += 0.3;
 				}
 			}
 
@@ -63,7 +63,5 @@ export default function Matrix() {
 			}
 		};
 	}, []);
-	return (
-		<canvas ref={canvasRef} className="fixed inset-0 -z-10 block bg-black" />
-	);
+	return <canvas ref={canvasRef} className="fixed inset-0 -z-10" />;
 }
