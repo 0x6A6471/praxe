@@ -36,7 +36,7 @@ This project is inspired by and built upon great open-source tools:
 ### Framework, design & UI
 - [Bitcoin Design](https://bitcoin.design) for icons and design standards
 - [Base UI](https://base-ui.com) for accessible component primitives
-- [TanStack Start](https://tanstack.com/start) for Router and React utilities
+- [TanStack](https://tanstack.com) for Router and full-stack React utilities
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 - [Vite](https://vitejs.dev/) for build tooling
 
