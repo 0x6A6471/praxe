@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import Inputs from "@/components/psbt/inputs";
-import Metadata from "@/components/psbt/metadata";
-import Outputs from "@/components/psbt/outputs";
 import Button from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import useTransaction from "@/hooks/useTransaction";
@@ -33,8 +30,6 @@ function TransactionPage() {
 		e.preventDefault();
 		parse(userInput);
 	}
-
-	console.log({ transaction });
 
 	return (
 		<div className="space-y-16 w-full">
@@ -69,13 +64,6 @@ function TransactionPage() {
 					</Button>
 				</div>
 			</form>
-			{/*psbt && (
-				<>
-					<Metadata version={psbt.version} locktime={psbt.locktime} />
-					<Inputs inputs={psbt.inputs} />
-					<Outputs outputs={psbt.outputs} />
-				</>
-			)*/}
 		</div>
 	);
 }
