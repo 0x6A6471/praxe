@@ -18,7 +18,7 @@ export const Route = createFileRoute("/transaction")({
 });
 
 function TransactionPage() {
-	const { error, parse, transaction, reset } = useTransaction();
+	const { error, parse, reset } = useTransaction();
 	const [userInput, setUserInput] = useState("");
 
 	function handlTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
