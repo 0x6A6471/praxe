@@ -4,7 +4,7 @@ import { Psbt } from "bitcoinjs-lib";
 import { Effect } from "effect";
 
 type Input = PsbtInput & PsbtTxInput;
-type Opts = {
+export type Opts = {
 	network?: Network;
 	maximumFeeRate?: number;
 };
