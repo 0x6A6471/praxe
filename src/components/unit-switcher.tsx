@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-import Button from "@/components/ui/button";
-import Icon from "@/components/ui/icon";
+import Button from "@/components/ui/core/button";
+import Icon from "@/components/ui/core/icon";
 import {
 	Menu,
 	MenuCheckboxItem,
 	MenuPopup,
 	MenuTrigger,
-} from "@/components/ui/menu";
+} from "@/components/ui/core/menu";
 import {
 	Tooltip,
 	TooltipPopup,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/core/tooltip";
 import useDisplay from "@/hooks/useDisplay";
 
 export default function UnitSwitcher() {

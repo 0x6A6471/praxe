@@ -1,13 +1,13 @@
-import { Match } from "effect";
+import type { Transaction } from "bitcoinjs-lib";
 
 import Badge from "@/components/ui/core/badge";
 import Icon from "@/components/ui/core/icon";
-import type { ParsedPsbt } from "@/services/psbt";
-import { getOutputScriptFromNonWitnessUtxo, hashToTxid } from "@/utils/bitcoin";
-import Script from "./script";
+import { hashToTxid } from "@/utils/bitcoin";
+
+// import Script from "../psbt/script";
 
 type Props = {
-	inputs: ParsedPsbt["inputs"];
+	inputs: Transaction["ins"];
 };
 
 export default function Inputs({ inputs }: Props) {
@@ -23,17 +23,6 @@ export default function Inputs({ inputs }: Props) {
 			</div>
 			<ul className="space-y-4">
 				{inputs.map((input, index) => {
-					const outputScript = Match.value(input).pipe(
-						Match.when(
-							{ witnessUtxo: Match.defined },
-							(inp) => inp.witnessUtxo.script,
-						),
-						Match.when({ nonWitnessUtxo: Match.defined }, (inp) =>
-							getOutputScriptFromNonWitnessUtxo(inp.nonWitnessUtxo, inp.index),
-						),
-						Match.orElse(() => undefined),
-					);
-
 					return (
 						<li
 							key={input.index}
@@ -47,7 +36,7 @@ export default function Inputs({ inputs }: Props) {
 									<dt className="text-muted-foreground">Previous TX ID</dt>
 									<dd className="sm:col-span-3 font-mono">
 										{hashToTxid(input.hash)}
-									</dd>{" "}
+									</dd>
 								</div>
 								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
 									<dt className="text-muted-foreground">
@@ -66,17 +55,7 @@ export default function Inputs({ inputs }: Props) {
 										</dd>
 									</div>
 								)}
-								<Script label="Witness script" script={input.witnessScript} />
-								<Script label="Redeem script" script={input.redeemScript} />
-								<Script
-									label="Unlock script"
-									script={input.finalScriptSig}
-									outputScript={outputScript}
-								/>
-								<Script
-									label="Final witness"
-									script={input.finalScriptWitness}
-								/>
+								{/*<Script label="Unlock script" script={input.script} />*/}
 							</dl>
 						</li>
 					);

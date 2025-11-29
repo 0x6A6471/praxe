@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import Button from "@/components/ui/button";
-import Icon from "@/components/ui/icon";
+import Metadata from "@/components/psbt/metadata";
+import Inputs from "@/components/transaction/inputs";
+import Button from "@/components/ui/core/button";
+import Icon from "@/components/ui/core/icon";
 import useTransaction from "@/hooks/useTransaction";
 import cn from "@/utils/class-names";
 
@@ -18,7 +20,7 @@ export const Route = createFileRoute("/transaction")({
 });
 
 function TransactionPage() {
-	const { error, parse, reset } = useTransaction();
+	const { error, parse, reset, transaction } = useTransaction();
 	const [userInput, setUserInput] = useState("");
 
 	function handlTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -30,6 +32,8 @@ function TransactionPage() {
 		e.preventDefault();
 		parse(userInput);
 	}
+
+	console.log({ transaction });
 
 	return (
 		<div className="space-y-16 w-full">
@@ -64,6 +68,18 @@ function TransactionPage() {
 					</Button>
 				</div>
 			</form>
+			{transaction && (
+				<>
+					<Metadata
+						fields={{
+							ID: transaction.getId(),
+							Version: transaction.version,
+							Locktime: transaction.locktime,
+						}}
+					/>
+					<Inputs inputs={transaction.ins} />
+				</>
+			)}
 		</div>
 	);
 }

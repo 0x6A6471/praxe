@@ -1,32 +1,16 @@
-import type { PsbtInputUpdate } from "bip174";
-import type { PsbtTxOutput } from "bitcoinjs-lib";
 import { script as bjsScript } from "bitcoinjs-lib";
 import { Match } from "effect";
 
 import ScriptText from "@/components/script-text";
-import Badge from "@/components/ui/badge";
+import Badge from "@/components/ui/core/badge";
 import { extractWitnessStack, getScriptType } from "@/utils/bitcoin";
 
-type ScriptLabel =
-	| "Witness script"
-	| "Redeem script"
-	| "Unlock script"
-	| "Final witness"
-	| "Lock script";
 type Props = {
-	label: ScriptLabel;
-	script:
-		| PsbtInputUpdate["witnessScript"]
-		| PsbtInputUpdate["redeemScript"]
-		| PsbtInputUpdate["finalScriptSig"]
-		| PsbtInputUpdate["finalScriptWitness"]
-		| PsbtTxOutput["script"];
-	// address is only used for lock script
+	label: string;
+	script: Uint8Array | undefined;
 	address?: string;
-	// output script being spent (for unlock script type detection)
 	outputScript?: Uint8Array;
 };
-
 export default function Script({
 	label,
 	script,
@@ -34,29 +18,33 @@ export default function Script({
 	outputScript,
 }: Props) {
 	if (!script) return null;
+	const isWitnessArray = Array.isArray(script);
+	const isFinalWitness =
+		label.toLowerCase().includes("final") ||
+		label.toLowerCase().includes("witness");
+	const isUnlock = label.toLowerCase().includes("unlock");
+	const type = isWitnessArray
+		? "witness"
+		: getScriptType(
+				script as Uint8Array,
+				isFinalWitness,
+				isUnlock,
+				outputScript,
+			);
 
-	const isFinalWitnessScript = label === "Final witness";
-	const isUnlockScript = label === "Unlock script";
-	const scriptType = getScriptType(
-		script,
-		isFinalWitnessScript,
-		isUnlockScript,
-		outputScript,
-	);
-	const parsedScript = parseScript(script, isFinalWitnessScript);
-
+	const parsed = parseScript(script, isFinalWitness || isWitnessArray);
 	return (
 		<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
 			<dt className="flex gap-x-1 sm:flex-col text-muted-foreground">
 				<p>{label}</p>
 				<Badge variant="secondary" className="text-muted-foreground">
-					{scriptType}
+					{type}
 				</Badge>
 			</dt>
 			<dd className="sm:col-span-3">
 				{address && <p className="font-mono mb-6">{address}</p>}
 				<div className="space-y-1 flex flex-col">
-					{parsedScript.map((text, idx) => (
+					{parsed.map((text, idx) => (
 						<ScriptText
 							// biome-ignore lint/suspicious/noArrayIndexKey: static script parsing
 							key={idx}
@@ -72,9 +60,10 @@ export default function Script({
 const parseScript = (
 	script: Exclude<Props["script"], undefined>,
 	isFinalWitness: boolean,
-): string[] =>
-	Match.value(isFinalWitness).pipe(
+): string[] => {
+	return Match.value(isFinalWitness).pipe(
 		Match.when(true, () => extractWitnessStack(script)),
 		Match.when(false, () => bjsScript.toASM(script).split(" ")),
 		Match.exhaustive,
 	);
+};

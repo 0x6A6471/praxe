@@ -1,8 +1,12 @@
 import { Match } from "effect";
 
-import Badge from "@/components/ui/badge";
-import Icon from "@/components/ui/icon";
-import { Tooltip, TooltipPopup, TooltipTrigger } from "@/components/ui/tooltip";
+import Badge from "@/components/ui/core/badge";
+import Icon from "@/components/ui/core/icon";
+import {
+	Tooltip,
+	TooltipPopup,
+	TooltipTrigger,
+} from "@/components/ui/core/tooltip";
 import UnitSwitcher from "@/components/unit-switcher";
 import useDisplay from "@/hooks/useDisplay";
 import type { ParsedPsbt } from "@/services/psbt";

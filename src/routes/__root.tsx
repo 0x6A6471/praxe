@@ -6,8 +6,8 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-import Footer from "@/components/shared/footer";
-import Nav from "@/components/shared/nav";
+import Footer from "@/components/ui/shared/footer";
+import Nav from "@/components/ui/shared/nav";
 import DisplayProvider from "@/context/display";
 import appCss from "../styles.css?url";
 

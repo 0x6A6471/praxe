@@ -1,12 +1,10 @@
-import Icon from "@/components/ui/icon";
-import type { ParsedPsbt } from "@/services/psbt";
+import Icon from "@/components/ui/core/icon";
 
 type Props = {
-	version: ParsedPsbt["version"];
-	locktime: ParsedPsbt["locktime"];
+	fields: Record<string, string | number>;
 };
 
-export default function Metadata({ version, locktime }: Props) {
+export default function Metadata({ fields }: Props) {
 	return (
 		<div>
 			<div className="flex items-center justify-between mb-4 ">
@@ -17,14 +15,15 @@ export default function Metadata({ version, locktime }: Props) {
 			<ul className="space-y-4">
 				<li className="rounded-xl bg-background flex flex-col">
 					<dl className="divide-y divide-border">
-						<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
-							<dt className="text-muted-foreground">Version</dt>
-							<dd className="sm:col-span-3 font-mono">{version}</dd>
-						</div>
-						<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
-							<dt className="text-muted-foreground">Locktime</dt>
-							<dd className="sm:col-span-3">{locktime}</dd>
-						</div>
+						{Object.entries(fields).map(([key, value]) => (
+							<div
+								key={key}
+								className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words"
+							>
+								<dt className="text-muted-foreground">{key}</dt>
+								<dd className="sm:col-span-3 font-mono">{value}</dd>
+							</div>
+						))}
 					</dl>
 				</li>
 			</ul>
