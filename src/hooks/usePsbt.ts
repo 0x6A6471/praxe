@@ -11,10 +11,12 @@ export default function usePsbt() {
 	const lastInputRef = useRef<string>("");
 
 	const parse = useCallback(
-		(psbtInput: string) => {
+		async (psbtInput: string) => {
 			try {
 				lastInputRef.current = psbtInput;
-				const result = Effect.runSync(processPsbt(psbtInput, { network }));
+				const result = await Effect.runPromise(
+					processPsbt(psbtInput, { network }),
+				);
 				setPsbt(result);
 				setError(null);
 			} catch (err) {
