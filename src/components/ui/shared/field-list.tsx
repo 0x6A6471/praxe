@@ -1,15 +1,18 @@
 import Icon from "@/components/ui/core/icon";
+import type { IconName } from "@/types/icon";
 
 type Props = {
+	iconName: IconName;
+	title: string;
 	fields: Record<string, string | number>;
 };
 
-export default function Metadata({ fields }: Props) {
+export default function FieldList({ iconName, title, fields }: Props) {
 	return (
 		<div>
 			<div className="flex items-center justify-between mb-4 ">
 				<h2 className="inline-flex items-center gap-x-2 text-lg">
-					<Icon name="brackets" /> <span>Metadata</span>
+					<Icon name={iconName} /> <span>{title}</span>
 				</h2>
 			</div>
 			<ul className="space-y-4">

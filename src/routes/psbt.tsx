@@ -2,10 +2,10 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Inputs from "@/components/psbt/inputs";
-import Metadata from "@/components/psbt/metadata";
 import Outputs from "@/components/psbt/outputs";
 import Button from "@/components/ui/core/button";
 import Icon from "@/components/ui/core/icon";
+import FieldList from "@/components/ui/shared/field-list";
 import usePsbt from "@/hooks/usePsbt";
 import cn from "@/utils/class-names";
 
@@ -69,7 +69,9 @@ function PsbtPage() {
 			</form>
 			{psbt && (
 				<>
-					<Metadata
+					<FieldList
+						iconName="box"
+						title="Header"
 						fields={{ Version: psbt.version, Locktime: psbt.locktime }}
 					/>
 					<Inputs inputs={psbt.inputs} />

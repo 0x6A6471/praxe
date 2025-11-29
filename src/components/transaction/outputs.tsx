@@ -44,10 +44,17 @@ export default function Outputs({ outputs }: Props) {
 						})),
 						Match.exhaustive,
 					);
-					const addr = address.fromOutputScript(output.script, network);
+
+					let addr: string | undefined;
+					try {
+						addr = address.fromOutputScript(output.script, network);
+					} catch {}
 
 					return (
-						<li key={addr} className="rounded-xl bg-background flex flex-col">
+						<li
+							key={addr ?? index}
+							className="rounded-xl bg-background flex flex-col"
+						>
 							<div className="border-b border-border p-4">
 								<h3 className="text-primary">#{index}</h3>
 							</div>

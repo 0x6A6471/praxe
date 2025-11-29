@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import Metadata from "@/components/psbt/metadata";
 import Inputs from "@/components/transaction/inputs";
 import Outputs from "@/components/transaction/outputs";
 import Button from "@/components/ui/core/button";
 import Icon from "@/components/ui/core/icon";
+import FieldList from "@/components/ui/shared/field-list";
 import useTransaction from "@/hooks/useTransaction";
 import cn from "@/utils/class-names";
 
@@ -33,8 +33,6 @@ function TransactionPage() {
 		e.preventDefault();
 		parse(userInput);
 	}
-
-	console.log({ transaction });
 
 	return (
 		<div className="space-y-16 w-full">
@@ -71,7 +69,9 @@ function TransactionPage() {
 			</form>
 			{transaction && (
 				<>
-					<Metadata
+					<FieldList
+						iconName="box"
+						title="Header"
 						fields={{
 							ID: transaction.getId(),
 							Version: transaction.version,
@@ -80,6 +80,15 @@ function TransactionPage() {
 					/>
 					<Inputs inputs={transaction.ins} />
 					<Outputs outputs={transaction.outs} />
+					<FieldList
+						iconName="sliders-horiz"
+						title="Properties"
+						fields={{
+							"Virtual size": transaction.virtualSize(),
+							Weight: transaction.weight(),
+							Coinbase: transaction.isCoinbase() ? "Yes" : "No",
+						}}
+					/>
 				</>
 			)}
 		</div>
