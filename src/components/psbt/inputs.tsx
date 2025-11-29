@@ -47,7 +47,7 @@ export default function Inputs({ inputs }: Props) {
 									<dt className="text-muted-foreground">Previous TX ID</dt>
 									<dd className="sm:col-span-3 font-mono">
 										{hashToTxid(input.hash)}
-									</dd>{" "}
+									</dd>
 								</div>
 								<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4">
 									<dt className="text-muted-foreground">

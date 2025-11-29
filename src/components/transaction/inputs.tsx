@@ -3,8 +3,7 @@ import type { Transaction } from "bitcoinjs-lib";
 import Badge from "@/components/ui/core/badge";
 import Icon from "@/components/ui/core/icon";
 import { hashToTxid } from "@/utils/bitcoin";
-
-// import Script from "../psbt/script";
+import Script from "../psbt/script";
 
 type Props = {
 	inputs: Transaction["ins"];
@@ -55,7 +54,8 @@ export default function Inputs({ inputs }: Props) {
 										</dd>
 									</div>
 								)}
-								{/*<Script label="Unlock script" script={input.script} />*/}
+								<Script label="Unlock script" script={input.script} />
+								<Script label="Witness script" script={input.witness} />
 							</dl>
 						</li>
 					);

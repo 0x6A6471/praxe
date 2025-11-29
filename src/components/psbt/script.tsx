@@ -5,9 +5,15 @@ import ScriptText from "@/components/script-text";
 import Badge from "@/components/ui/core/badge";
 import { extractWitnessStack, getScriptType } from "@/utils/bitcoin";
 
+type Label =
+	| "Final witness"
+	| "Redeem script"
+	| "Unlock script"
+	| "Witness script";
+
 type Props = {
-	label: string;
-	script: Uint8Array | undefined;
+	label: Label;
+	script: Uint8Array | Uint8Array<ArrayBufferLike>[] | undefined;
 	address?: string;
 	outputScript?: Uint8Array;
 };
@@ -17,22 +23,22 @@ export default function Script({
 	address,
 	outputScript,
 }: Props) {
-	if (!script) return null;
-	const isWitnessArray = Array.isArray(script);
-	const isFinalWitness =
-		label.toLowerCase().includes("final") ||
-		label.toLowerCase().includes("witness");
-	const isUnlock = label.toLowerCase().includes("unlock");
-	const type = isWitnessArray
-		? "witness"
-		: getScriptType(
-				script as Uint8Array,
-				isFinalWitness,
-				isUnlock,
-				outputScript,
-			);
+	if (!script || script.length === 0) return null;
 
-	const parsed = parseScript(script, isFinalWitness || isWitnessArray);
+	const isWitnessArray = Array.isArray(script);
+	const isWitness =
+		label === "Final witness" ||
+		// handles psbt vs transaction "Witness script" label
+		(Array.isArray(script) && label === "Witness script");
+	const isUnlock = label === "Unlock script";
+	const type = getScriptType(
+		script as Uint8Array,
+		isWitness,
+		isUnlock,
+		outputScript,
+	);
+
+	const parsed = parseScript(script, isWitness || isWitnessArray);
 	return (
 		<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
 			<dt className="flex gap-x-1 sm:flex-col text-muted-foreground">
@@ -59,9 +65,16 @@ export default function Script({
 
 const parseScript = (
 	script: Exclude<Props["script"], undefined>,
-	isFinalWitness: boolean,
+	isWitness: boolean,
 ): string[] => {
-	return Match.value(isFinalWitness).pipe(
+	if (Array.isArray(script)) {
+		return script.map((buf) =>
+			Array.from(buf)
+				.map((b) => b.toString(16).padStart(2, "0"))
+				.join(""),
+		);
+	}
+	return Match.value(isWitness).pipe(
 		Match.when(true, () => extractWitnessStack(script)),
 		Match.when(false, () => bjsScript.toASM(script).split(" ")),
 		Match.exhaustive,
