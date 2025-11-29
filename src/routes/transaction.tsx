@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import Button from "@/components/ui/button";
-import Icon from "@/components/ui/icon";
+import Inputs from "@/components/transaction/inputs";
+import Outputs from "@/components/transaction/outputs";
+import Button from "@/components/ui/core/button";
+import Icon from "@/components/ui/core/icon";
+import FieldList from "@/components/ui/shared/field-list";
 import useTransaction from "@/hooks/useTransaction";
 import cn from "@/utils/class-names";
 
@@ -18,7 +21,7 @@ export const Route = createFileRoute("/transaction")({
 });
 
 function TransactionPage() {
-	const { error, parse, reset } = useTransaction();
+	const { error, parse, reset, transaction } = useTransaction();
 	const [userInput, setUserInput] = useState("");
 
 	function handlTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -64,6 +67,30 @@ function TransactionPage() {
 					</Button>
 				</div>
 			</form>
+			{transaction && (
+				<>
+					<FieldList
+						iconName="box"
+						title="Header"
+						fields={{
+							ID: transaction.getId(),
+							Version: transaction.version,
+							Locktime: transaction.locktime,
+						}}
+					/>
+					<Inputs inputs={transaction.ins} />
+					<Outputs outputs={transaction.outs} />
+					<FieldList
+						iconName="sliders-horiz"
+						title="Properties"
+						fields={{
+							"Virtual size": transaction.virtualSize(),
+							Weight: transaction.weight(),
+							Coinbase: transaction.isCoinbase() ? "Yes" : "No",
+						}}
+					/>
+				</>
+			)}
 		</div>
 	);
 }

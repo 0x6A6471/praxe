@@ -1,6 +1,6 @@
 import { Match } from "effect";
 
-import Badge from "@/components/ui/badge";
+import Badge from "@/components/ui/core/badge";
 import { isOpCode } from "@/utils/bitcoin";
 
 export default function ScriptTest({ label }: { label: string }) {

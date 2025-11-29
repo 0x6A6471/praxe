@@ -1,8 +1,8 @@
 import { networks } from "bitcoinjs-lib";
 
-import Label from "@/components/ui/label";
-import Switch from "@/components/ui/switch";
 import useDisplay from "@/hooks/useDisplay";
+import Label from "../core/label";
+import Switch from "../core/switch";
 
 export default function NetworkSwitch() {
 	const { network, toggleNetwork } = useDisplay();
