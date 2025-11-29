@@ -7,6 +7,7 @@ import { extractWitnessStack, getScriptType } from "@/utils/bitcoin";
 
 type Label =
 	| "Final witness"
+	| "Lock script"
 	| "Redeem script"
 	| "Unlock script"
 	| "Witness script";

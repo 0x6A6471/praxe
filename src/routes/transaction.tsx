@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import Metadata from "@/components/psbt/metadata";
 import Inputs from "@/components/transaction/inputs";
+import Outputs from "@/components/transaction/outputs";
 import Button from "@/components/ui/core/button";
 import Icon from "@/components/ui/core/icon";
 import useTransaction from "@/hooks/useTransaction";
@@ -78,6 +79,7 @@ function TransactionPage() {
 						}}
 					/>
 					<Inputs inputs={transaction.ins} />
+					<Outputs outputs={transaction.outs} />
 				</>
 			)}
 		</div>
