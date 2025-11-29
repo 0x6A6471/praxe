@@ -2,9 +2,9 @@ import { Match } from "effect";
 
 import Badge from "@/components/ui/core/badge";
 import Icon from "@/components/ui/core/icon";
+import Script from "@/components/ui/shared/script";
 import type { ParsedPsbt } from "@/services/psbt";
 import { getOutputScriptFromNonWitnessUtxo, hashToTxid } from "@/utils/bitcoin";
-import Script from "./script";
 
 type Props = {
 	inputs: ParsedPsbt["inputs"];

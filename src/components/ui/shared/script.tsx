@@ -26,11 +26,7 @@ export default function Script({
 }: Props) {
 	if (!script || script.length === 0) return null;
 
-	const isWitnessArray = Array.isArray(script);
-	const isWitness =
-		label === "Final witness" ||
-		// handles psbt vs transaction "Witness script" label
-		(Array.isArray(script) && label === "Witness script");
+	const isWitness = isWitnessLabel(label, Array.isArray(script));
 	const isUnlock = label === "Unlock script";
 	const type = getScriptType(
 		script as Uint8Array,
@@ -39,7 +35,7 @@ export default function Script({
 		outputScript,
 	);
 
-	const parsed = parseScript(script, isWitness || isWitnessArray);
+	const parsed = parseScript(script, isWitness);
 	return (
 		<div className="p-4 sm:grid sm:grid-cols-4 sm:gap-4 break-words">
 			<dt className="flex gap-x-1 sm:flex-col text-muted-foreground">
@@ -52,17 +48,16 @@ export default function Script({
 				{address && <p className="font-mono mb-6">{address}</p>}
 				<div className="space-y-1 flex flex-col">
 					{parsed.map((text, idx) => (
-						<ScriptText
-							// biome-ignore lint/suspicious/noArrayIndexKey: static script parsing
-							key={idx}
-							label={text}
-						/>
+						<ScriptText key={idx} label={text} />
 					))}
 				</div>
 			</dd>
 		</div>
 	);
 }
+
+const isWitnessLabel = (label: Label, isArray: boolean): boolean =>
+	label === "Final witness" || (isArray && label === "Witness script");
 
 const parseScript = (
 	script: Exclude<Props["script"], undefined>,

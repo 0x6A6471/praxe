@@ -7,11 +7,11 @@ import {
 	TooltipPopup,
 	TooltipTrigger,
 } from "@/components/ui/core/tooltip";
+import Script from "@/components/ui/shared/script";
 import UnitSwitcher from "@/components/unit-switcher";
 import useDisplay from "@/hooks/useDisplay";
 import type { ParsedPsbt } from "@/services/psbt";
 import { formatBtc, formatSats } from "@/utils/formatters";
-import Script from "./script";
 
 type Props = {
 	outputs: ParsedPsbt["outputs"];

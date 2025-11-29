@@ -8,10 +8,10 @@ import {
 	TooltipPopup,
 	TooltipTrigger,
 } from "@/components/ui/core/tooltip";
+import Script from "@/components/ui/shared/script";
 import UnitSwitcher from "@/components/unit-switcher";
 import useDisplay from "@/hooks/useDisplay";
 import { formatBtc, formatSats } from "@/utils/formatters";
-import Script from "../psbt/script";
 
 type Props = {
 	outputs: Transaction["outs"];
@@ -51,10 +51,7 @@ export default function Outputs({ outputs }: Props) {
 					} catch {}
 
 					return (
-						<li
-							key={addr ?? index}
-							className="rounded-xl bg-background flex flex-col"
-						>
+						<li key={index} className="rounded-xl bg-background flex flex-col">
 							<div className="border-b border-border p-4">
 								<h3 className="text-primary">#{index}</h3>
 							</div>

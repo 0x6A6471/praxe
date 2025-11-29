@@ -2,8 +2,8 @@ import type { Transaction } from "bitcoinjs-lib";
 
 import Badge from "@/components/ui/core/badge";
 import Icon from "@/components/ui/core/icon";
+import Script from "@/components/ui/shared/script";
 import { hashToTxid } from "@/utils/bitcoin";
-import Script from "../psbt/script";
 
 type Props = {
 	inputs: Transaction["ins"];
