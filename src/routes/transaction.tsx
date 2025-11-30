@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import Inputs from "@/components/psbt/inputs";
-import Outputs from "@/components/psbt/outputs";
+import Inputs from "@/components/transaction/inputs";
+import Outputs from "@/components/transaction/outputs";
 import Button from "@/components/ui/core/button";
 import Icon from "@/components/ui/core/icon";
 import FieldList from "@/components/ui/shared/field-list";
-import usePsbt from "@/hooks/usePsbt";
+import useTransaction from "@/hooks/useTransaction";
 import cn from "@/utils/class-names";
 
-export const Route = createFileRoute("/psbt")({
+export const Route = createFileRoute("/transaction")({
 	head: () => ({
 		meta: [
 			{
-				title: "psbt | praxe",
+				title: "transaction | praxe",
 			},
 		],
 	}),
-	component: PsbtPage,
+	component: TransactionPage,
 });
 
-function PsbtPage() {
-	const { error, parse, psbt, reset } = usePsbt();
+function TransactionPage() {
+	const { error, parse, reset, transaction } = useTransaction();
 	const [userInput, setUserInput] = useState("");
 
 	function handlTextareaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -38,7 +38,7 @@ function PsbtPage() {
 		<div className="space-y-16 w-full">
 			<form onSubmit={handleSubmit}>
 				<div>
-					<label htmlFor="hex">Hex or base64</label>
+					<label htmlFor="hex">Hex</label>
 					<div>
 						<textarea
 							id="hex"
@@ -67,15 +67,28 @@ function PsbtPage() {
 					</Button>
 				</div>
 			</form>
-			{psbt && (
+			{transaction && (
 				<>
 					<FieldList
 						iconName="box"
 						title="Header"
-						fields={{ Version: psbt.version, Locktime: psbt.locktime }}
+						fields={{
+							ID: transaction.getId(),
+							Version: transaction.version,
+							Locktime: transaction.locktime,
+						}}
 					/>
-					<Inputs inputs={psbt.inputs} />
-					<Outputs outputs={psbt.outputs} />
+					<Inputs inputs={transaction.ins} />
+					<Outputs outputs={transaction.outs} />
+					<FieldList
+						iconName="sliders-horiz"
+						title="Properties"
+						fields={{
+							"Virtual size": transaction.virtualSize(),
+							Weight: transaction.weight(),
+							Coinbase: transaction.isCoinbase() ? "Yes" : "No",
+						}}
+					/>
 				</>
 			)}
 		</div>

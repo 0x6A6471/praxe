@@ -10,7 +10,7 @@ describe("BIP174 processPsbt", () => {
 		const invalidPsbts = fixtures.bip174.invalid;
 
 		it.each(invalidPsbts)(
-			"should throw '$errorMessage' for: $description",
+			"should throw $errorMessage for: $description",
 			({ psbt, errorMessage }) => {
 				expect(() => {
 					Effect.runSync(processPsbt(psbt));

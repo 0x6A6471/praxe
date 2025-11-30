@@ -37,6 +37,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
     "@cloudflare/vite-plugin": "^1.15.2",
+    "@effect/language-service": "^0.57.1",
     "@tanstack/react-router-devtools": "^1.139.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",

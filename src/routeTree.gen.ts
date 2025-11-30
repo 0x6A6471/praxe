@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TransactionRouteImport } from './routes/transaction'
 import { Route as PsbtRouteImport } from './routes/psbt'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TransactionRoute = TransactionRouteImport.update({
+  id: '/transaction',
+  path: '/transaction',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PsbtRoute = PsbtRouteImport.update({
   id: '/psbt',
   path: '/psbt',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/psbt': typeof PsbtRoute
+  '/transaction': typeof TransactionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/psbt': typeof PsbtRoute
+  '/transaction': typeof TransactionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/psbt': typeof PsbtRoute
+  '/transaction': typeof TransactionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/psbt'
+  fullPaths: '/' | '/psbt' | '/transaction'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/psbt'
-  id: '__root__' | '/' | '/psbt'
+  to: '/' | '/psbt' | '/transaction'
+  id: '__root__' | '/' | '/psbt' | '/transaction'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PsbtRoute: typeof PsbtRoute
+  TransactionRoute: typeof TransactionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/transaction': {
+      id: '/transaction'
+      path: '/transaction'
+      fullPath: '/transaction'
+      preLoaderRoute: typeof TransactionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/psbt': {
       id: '/psbt'
       path: '/psbt'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PsbtRoute: PsbtRoute,
+  TransactionRoute: TransactionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -5,32 +5,23 @@
  * To regenerate this file, run: bun run icongen
  */
 
-export type IconProps =
-	| { name: "alert-triangle"; variant?: "line" }
-	| { name: "brackets"; variant?: "line" }
-	| { name: "btc"; variant?: "filled" }
-	| { name: "github"; variant?: "filled" }
-	| { name: "input"; variant?: "line" }
-	| { name: "output"; variant?: "line" }
-	| { name: "sats"; variant?: "filled" };
+export type IconProps = { name: "alert-triangle"; variant?: "line" } | { name: "box"; variant?: "line" } | { name: "btc"; variant?: "filled" } | { name: "github"; variant?: "filled" } | { name: "input"; variant?: "line" } | { name: "output"; variant?: "line" } | { name: "sats"; variant?: "filled" } | { name: "sliders-horiz"; variant?: "line" };
 
 export type IconName = IconProps["name"];
 export type IconVariant = "line" | "filled";
 
 export const ICON_VARIANTS: Record<IconName, IconVariant[]> = {
 	"alert-triangle": ["line"],
-	brackets: ["line"],
-	btc: ["filled"],
-	github: ["filled"],
-	input: ["line"],
-	output: ["line"],
-	sats: ["filled"],
+	"box": ["line"],
+	"btc": ["filled"],
+	"github": ["filled"],
+	"input": ["line"],
+	"output": ["line"],
+	"sats": ["filled"],
+	"sliders-horiz": ["line"],
 };
 
-export function getIconId(
-	name: IconName,
-	variant: IconVariant = "line",
-): string {
+export function getIconId(name: IconName, variant: IconVariant = "line"): string {
 	const variants = ICON_VARIANTS[name];
 	if (!variants.includes(variant)) {
 		console.warn(
@@ -45,4 +36,3 @@ export function getIconId(
 
 	return name;
 }
-

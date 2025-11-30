@@ -1,3 +1,4 @@
+import { address, type Transaction } from "bitcoinjs-lib";
 import { Match } from "effect";
 
 import Badge from "@/components/ui/core/badge";
@@ -10,15 +11,14 @@ import {
 import Script from "@/components/ui/shared/script";
 import UnitSwitcher from "@/components/unit-switcher";
 import useDisplay from "@/hooks/useDisplay";
-import type { ParsedPsbt } from "@/services/psbt";
 import { formatBtc, formatSats } from "@/utils/formatters";
 
 type Props = {
-	outputs: ParsedPsbt["outputs"];
+	outputs: Transaction["outs"];
 };
 
 export default function Outputs({ outputs }: Props) {
-	const { unit } = useDisplay();
+	const { network, unit } = useDisplay();
 
 	if (outputs.length === 0) return null;
 
@@ -45,11 +45,13 @@ export default function Outputs({ outputs }: Props) {
 						Match.exhaustive,
 					);
 
+					let addr: string | undefined;
+					try {
+						addr = address.fromOutputScript(output.script, network);
+					} catch {}
+
 					return (
-						<li
-							key={output.address}
-							className="rounded-xl bg-background flex flex-col"
-						>
+						<li key={index} className="rounded-xl bg-background flex flex-col">
 							<div className="border-b border-border p-4">
 								<h3 className="text-primary">#{index}</h3>
 							</div>
@@ -66,7 +68,7 @@ export default function Outputs({ outputs }: Props) {
 								<Script
 									label="Lock script"
 									script={output.script}
-									address={output.address}
+									address={addr}
 								/>
 							</dl>
 						</li>

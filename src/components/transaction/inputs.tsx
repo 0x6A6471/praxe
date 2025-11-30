@@ -1,13 +1,12 @@
-import { Match } from "effect";
+import type { Transaction } from "bitcoinjs-lib";
 
 import Badge from "@/components/ui/core/badge";
 import Icon from "@/components/ui/core/icon";
 import Script from "@/components/ui/shared/script";
-import type { ParsedPsbt } from "@/services/psbt";
-import { getOutputScriptFromNonWitnessUtxo, hashToTxid } from "@/utils/bitcoin";
+import { hashToTxid } from "@/utils/bitcoin";
 
 type Props = {
-	inputs: ParsedPsbt["inputs"];
+	inputs: Transaction["ins"];
 };
 
 export default function Inputs({ inputs }: Props) {
@@ -23,17 +22,6 @@ export default function Inputs({ inputs }: Props) {
 			</div>
 			<ul className="space-y-4">
 				{inputs.map((input, index) => {
-					const outputScript = Match.value(input).pipe(
-						Match.when(
-							{ witnessUtxo: Match.defined },
-							(inp) => inp.witnessUtxo.script,
-						),
-						Match.when({ nonWitnessUtxo: Match.defined }, (inp) =>
-							getOutputScriptFromNonWitnessUtxo(inp.nonWitnessUtxo, inp.index),
-						),
-						Match.orElse(() => undefined),
-					);
-
 					return (
 						<li
 							key={input.index}
@@ -66,17 +54,8 @@ export default function Inputs({ inputs }: Props) {
 										</dd>
 									</div>
 								)}
-								<Script label="Witness script" script={input.witnessScript} />
-								<Script label="Redeem script" script={input.redeemScript} />
-								<Script
-									label="Unlock script"
-									script={input.finalScriptSig}
-									outputScript={outputScript}
-								/>
-								<Script
-									label="Final witness"
-									script={input.finalScriptWitness}
-								/>
+								<Script label="Unlock script" script={input.script} />
+								<Script label="Witness script" script={input.witness} />
 							</dl>
 						</li>
 					);
