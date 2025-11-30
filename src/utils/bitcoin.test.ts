@@ -86,8 +86,8 @@ describe("bitcoin utils", () => {
 			expect(type).toBe("p2ms");
 		});
 
-		it.skip("should identify p2tr output script", () => {
-			const type = getScriptType(scriptFixtures.p2tr);
+		it("should identify p2tr output script", () => {
+			const type = getScriptType(scriptFixtures.p2tr, false, false);
 			expect(type).toBe("p2tr");
 		});
 
@@ -135,8 +135,9 @@ describe("bitcoin utils", () => {
 	});
 
 	describe("getOutputScriptFromNonWitnessUtxo", () => {
-		it.skip("should extract output script from a transaction", () => {
+		it("should extract output script from a transaction", () => {
 			const tx = new Transaction();
+			tx.addInput(Buffer.alloc(32), 0);
 			tx.addOutput(scriptFixtures.p2pkh, 50000n);
 
 			const serialized = tx.toBuffer();
