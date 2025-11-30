@@ -46,10 +46,7 @@ export default function Outputs({ outputs }: Props) {
 					);
 
 					return (
-						<li
-							key={output.address}
-							className="rounded-xl bg-background flex flex-col"
-						>
+						<li key={index} className="rounded-xl bg-background flex flex-col">
 							<div className="border-b border-border p-4">
 								<h3 className="text-primary">#{index}</h3>
 							</div>

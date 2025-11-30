@@ -59,20 +59,27 @@ export default function Script({
 const isWitnessLabel = (label: Label, isArray: boolean): boolean =>
 	label === "Final witness" || (isArray && label === "Witness script");
 
+const toHex = (buf: Uint8Array): string =>
+	Array.from(buf)
+		.map((b) => b.toString(16).padStart(2, "0"))
+		.join("");
+
 const parseScript = (
 	script: Exclude<Props["script"], undefined>,
 	isWitness: boolean,
 ): string[] => {
 	if (Array.isArray(script)) {
-		return script.map((buf) =>
-			Array.from(buf)
-				.map((b) => b.toString(16).padStart(2, "0"))
-				.join(""),
-		);
+		return script.map(toHex);
 	}
 	return Match.value(isWitness).pipe(
 		Match.when(true, () => extractWitnessStack(script)),
-		Match.when(false, () => bjsScript.toASM(script).split(" ")),
+		Match.when(false, () => {
+			try {
+				return bjsScript.toASM(script).split(" ");
+			} catch {
+				return [toHex(script)];
+			}
+		}),
 		Match.exhaustive,
 	);
 };
