@@ -17,9 +17,12 @@ export default defineConfig({
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],
       exclude: [
+        'src/routeTree.gen.ts',
+        'src/routes/**',
         'src/**/*.test.{ts,tsx}',
         'src/**/*.spec.{ts,tsx}',
-        '**/__fixtures__/**'
+        '**/__fixtures__/**',
+        'src/types/**'
       ]
     }
   },

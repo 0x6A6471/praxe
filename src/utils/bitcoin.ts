@@ -38,6 +38,11 @@ export const getScriptType = (
 		return getScriptType(outputScript, false, false);
 	}
 
+	// p2tr check (before payments.p2tr call to avoid ECC library requirement)
+	if (script.length === 34 && script[0] === 0x51 && script[1] === 0x20) {
+		return "p2tr";
+	}
+
 	const tryPayment = (
 		name: string,
 		fn: (config: { output: Uint8Array }) => Payment,
